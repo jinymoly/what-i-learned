@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Main {
 
   public String solution(String str) {
+    String answer = "";
     
     return answer;
 }
