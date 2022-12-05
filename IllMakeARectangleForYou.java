@@ -14,9 +14,8 @@ public class IllMakeARectangleForYou {
 
         StringBuilder stringBuilder = new StringBuilder();
         IntStream.range(0, row).forEach(s-> stringBuilder.append("Yes"));
-        IntStream.range(0, column).forEach(s-> 
-        System.out.println(stringBuilder.toString()));
-
+        IntStream.range(0, column)
+            .forEach(s-> System.out.println(stringBuilder.toString()));
 
     }
 }
