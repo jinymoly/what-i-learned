@@ -10,9 +10,9 @@ public class TheAdditionOfFractions {
         
         int[] answer = new int[2];
 
-        answer[0] = denum1 * denum2 + num1 + num2; 
+        answer[0] = denum1 * denum2 + num1 * num2; 
         answer[1] = num1 * num2;
 
-        
+
     }
 }
