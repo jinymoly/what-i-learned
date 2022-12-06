@@ -16,7 +16,7 @@ public class newPyramidApp {
             for (int j=0; j<line-(i-1)+add; j++){
                 System.out.print("&");
             }
-        
+            
             System.out.println();
         }
     }
