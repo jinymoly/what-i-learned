@@ -17,15 +17,12 @@ public class MaxValue {
        sc.close();
 
        int max = numbers[0];
+
        for(int i=1; i<numbers.length; i++){
         if(max<numbers[i]) max = numbers[i];
        }
        System.out.println("최댓값은 : " + max + "!!!");
         
-       
-
-        
     }
 
-    
 }
