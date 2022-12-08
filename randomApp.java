@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Random;
 
-class randomApp {
+public class RandomApp {
    
 
     public static void main(String[] args) {
