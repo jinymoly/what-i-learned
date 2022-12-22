@@ -6,7 +6,7 @@ class Main {
     
     public ArrayList<String> solution(int a, String[] str){
         ArrayList<String> answer = new ArrayList<>();
-        for(String x :str){
+        for(String x : str){
             String tmp = new StringBuilder(x).reverse().toString();
             answer.add(tmp);
         }
