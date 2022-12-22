@@ -1,6 +1,6 @@
 import java.util.Scanner;
   
-public class Main {
+class Main {
 
   public String solution(String str) {
     String answer = "";
