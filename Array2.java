@@ -11,16 +11,14 @@ public class Array2 {
         int total = 0;
         float average = 0;
 
-       for(int i = 0; i<arr.length; i++){
-        for(int j = 0; j<arr[i].length; j++){
-            total +=arr[i][j];
-        }
-       }
-       System.out.println("===============");
-       System.out.println("total = " + total);
-       average = (float)total/(arr.length*arr[0].length);
-       System.out.println("average = " + average);
-       System.out.println("===============");
+        for(int i = 0; i < arr.length; i++){
+            for(int j = 0; j < arr[i].length; j++){
+                total += arr[i][j];
 
+            }
+        }
+        System.out.println("total = " + total);
+        average = (float) total/(arr.length * arr[0].length);
+        System.out.println("average = " + average);
     }
 }
