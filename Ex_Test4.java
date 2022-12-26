@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/*
+ * 4. 단어 뒤집기(StringBuilder)
+ */
 class Main {
     
     public ArrayList<String> solution(int a, String[] str){
