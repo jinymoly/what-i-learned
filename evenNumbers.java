@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class evenNumbers {
+public class EvenNumbers {
     
     public static void main(String[] arg) {
         int answer = 0;

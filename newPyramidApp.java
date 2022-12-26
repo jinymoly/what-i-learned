@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 // 피라미드 만들기 
-public class newPyramidApp {
+public class NewPyramidApp {
     public static void main(String[] args) {
         int line;
         Scanner scanner = new Scanner(System.in);
