@@ -88,7 +88,7 @@ public class Ex7_28 {
                  if(cart[i]==null) 
                  break;
                  sum += cart[i].price;
-                 pList += cart[i]+ ",";
+                 pList += (i==0) ? "" + cart[i] : "," + cart[i];
 
                 }
                 System.out.println("지금까지 구입하신 물건의 가격은 총 " + sum + "입니다.");
