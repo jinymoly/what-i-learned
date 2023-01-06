@@ -4,8 +4,12 @@ public class Ex7_5 {
 
         t.setChannel(10);
         System.out.println("CH: " + t.getChannel());
-        t.setVolume(20);
-        System.out.println("CH: " + t.getVolume());
+        t.setChannel(20);
+        System.out.println("CH: " + t.getChannel());
+        t.gotoPrevChannel();
+        System.out.println("ch: " + t.getChannel());
+        t.gotoPrevChannel();
+        System.out.println("ch: " + t.getChannel());
         
     }
 }
@@ -15,6 +19,7 @@ class MyTv3 {
     boolean isPowerOn;
     int channel;
     int volume;
+    int prevCh;
 
     final int MAX_VOLUME = 100;
     final int MIN_VOLUME = 0;
@@ -24,6 +29,9 @@ class MyTv3 {
     public boolean isPowerOn() {
         return isPowerOn;
     }
+    public void gotoPrevChannel() {
+        setChannel(prevCh);
+    }
     public void setPowerOn(boolean isPowerOn) {
         this.isPowerOn = isPowerOn;
     }
@@ -31,6 +39,8 @@ class MyTv3 {
         return channel;
     }
     public void setChannel(int channel) {
+        if(!(channel < MIN_CHANNEL || channel >MAX_CHANNEL))
+        prevCh = this.channel;
         this.channel = channel;
     }
     public int getVolume() {
