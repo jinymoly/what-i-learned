@@ -21,7 +21,7 @@ class SutdaDeck {
 
     SutdaDeck() {
         for(int i = 0; i < CARD_NUM; i++){
-            int num = i %10 + 1;
+            int num = i % 10 + 1;
             boolean isKwang = (i < 10) && (num == 1 || num == 3 || num == 8);
 
             cards[i] = new SutdaCard(num, isKwang);
@@ -29,7 +29,7 @@ class SutdaDeck {
     }
 
     void shuffle() {
-        for(int i = 0; i < CARD_NUM; i++){
+        for(int i = 0; i < CARD_NUM; i++) {
             int random = (int)(Math.random()*cards.length);
             SutdaCard tmp = cards[i];
             cards[i] = cards[random];
@@ -37,13 +37,14 @@ class SutdaDeck {
         }
     }
 
-    SutdaCard pick(int index) {
-        if(index <0 || index >= CARD_NUM) return null;
+    SutdaCard pick(int index){
+        if(index < 0 || index >= CARD_NUM) 
+            return null;
         return cards[index];
     }
 
     SutdaCard pick() {
-        int random = (int)Math.random()*cards.length;
+        int random = (int)(Math.random()*cards.length);
         return pick(random);
     }
 }
