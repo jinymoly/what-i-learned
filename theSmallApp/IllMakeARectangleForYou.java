@@ -1,3 +1,4 @@
+package theSmallApp;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 

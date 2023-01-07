@@ -1,3 +1,4 @@
+package theStandardOfJava;
 
 class MyTv {
     boolean isPowerOn;

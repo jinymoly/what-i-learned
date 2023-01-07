@@ -1,3 +1,4 @@
+package theStandardOfJava;
 import java.util.Arrays;
 
 public class Ex6_20 {

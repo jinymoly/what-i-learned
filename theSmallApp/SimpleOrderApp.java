@@ -1,3 +1,4 @@
+package theSmallApp;
 import java.util.Scanner;
 
 public class SimpleOrderApp {

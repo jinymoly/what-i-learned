@@ -1,3 +1,4 @@
+package theSmallApp;
 /**
  * 첫 번째 분수의 분자와 분모를 뜻하는 denum1, num1, 
  * 두 번째 분수의 분자와 분모를 뜻하는 denum2, num2가 매개변수로 주어집니다. 

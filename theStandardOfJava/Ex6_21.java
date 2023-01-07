@@ -1,3 +1,4 @@
+package theStandardOfJava;
 public class Ex6_21 {
     
     public static int abs(int value){

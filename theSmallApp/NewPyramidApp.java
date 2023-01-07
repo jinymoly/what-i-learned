@@ -1,3 +1,4 @@
+package theSmallApp;
 import java.util.Scanner;
 
 // 피라미드 만들기 

@@ -1,3 +1,4 @@
+package theStandardOfJava;
 public class Ex6_18 {
     
     public static boolean isNumber(String str){
