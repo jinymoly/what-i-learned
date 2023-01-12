@@ -1,4 +1,4 @@
-package theStandardOfJava;
+package preTest;
 import java.util.ArrayList;
 import java.util.Scanner;
 

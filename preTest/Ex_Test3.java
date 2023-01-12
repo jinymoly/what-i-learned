@@ -1,4 +1,4 @@
-package theStandardOfJava;
+package preTest;
 import java.util.Scanner;
 /*
  * 3. 문장 속 단어(indexOf(), substring())
