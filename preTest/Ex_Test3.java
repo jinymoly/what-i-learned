@@ -2,6 +2,7 @@ package preTest;
 import java.util.Scanner;
 /*
  * 3. 문장 속 단어(indexOf(), substring())
+ *  substring() - 주어진 위치부터 끝위치 범위에 포함된 문자열 
  */
 
 class Main {
@@ -9,14 +10,18 @@ class Main {
     public String solution(String str){
         String answer = "";
         int min = Integer.MIN_VALUE;
-        String[] arr = str.split("");
-        for(String s : arr){
-            int length = s.length();
-            if(length>min){
-                min = length;
-                answer = s;
+        int pos;
+        while((pos = str.indexOf(' '))!=-1) {
+            String tmp = str.substring(0, pos);
+            int len = tmp.length();
+            if(len>min){
+                min = len;
+                answer = tmp;
             }
+            str = str.substring(pos + 1);
         }
+        if(str.length() > min)
+            answer = str;        
         return answer;
     }
 
