@@ -41,7 +41,7 @@ public class Ex10_3 {
         Date fromDate = from.getTime();
         Date toDate = to.getTime();
         
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println(sdf.format(fromDate) + "~" + sdf.format(toDate) + ":");
         System.out.println(paycheckCount(from, to));
     }
