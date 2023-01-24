@@ -2,7 +2,7 @@ package theStandardOfJava.part_02;
 
 import java.util.ArrayList;
 
-public class Ex_12_4e {
+public class Ex12_4e {
     
     public static <T extends Product>ArrayList merge(
         ArrayList<T>list, ArrayList<T> list2) {
