@@ -11,16 +11,16 @@ public class Ex14_2 {
     
     public static void main(String[] args) {
         Supplier<Integer> s = ()-> (int)(Math.random()*100)+1;
-        Consumer<Integer> c = i -> System.out.println(i+", ");
+        Consumer<Integer> c = i -> System.out.print(i+", ");
         Predicate<Integer> p = i -> i%2 == 0;
         Function<Integer, Integer> f = i -> i/10*10;
 
         List<Integer> list = new ArrayList<>();
         makeRandomList(s, list);
-        System.out.println(list);
+        System.out.println("list" + list);
         printEvenNum(p, c, list);
         List<Integer> newList = doSomething(f, list);
-        System.out.println(newList);
+        System.out.println("newList" + newList);
     }
 
     static <T> List<T> doSomething(Function<T,T> f, List<T> list) {
@@ -38,7 +38,7 @@ public class Ex14_2 {
             if(p.test(i))
                 c.accept(i);
         }
-        System.out.print("]");
+        System.out.println("]");
     }
 
     static <T> void makeRandomList(Supplier<T> s, List<T> list) {
