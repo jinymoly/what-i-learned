@@ -1,5 +1,10 @@
 package programmers;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /*
 문제 설명
     정수가 들어 있는 배열 num_list가 매개변수로 주어집니다. 
@@ -15,23 +20,16 @@ package programmers;
     입출력 예 #3
     num_list가 [1, 0, 1, 1, 1, 3, 5]이므로 순서를 거꾸로 뒤집은 배열 [5, 3, 1, 1, 1, 0, 1]을 return합니다.
 */
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class P_120821 {
     
     public int[] solution(int[] num) {
-        
-        Integer[] newList = Arrays.stream(num).boxed().toArray(Integer[]::new);
-
-        List<Integer> list = Arrays.asList(newList);
+      
+        List<Integer> list = Arrays.stream(num).boxed().collect(Collectors.toList());
         Collections.reverse(list);
+
+        int[] arrays = list.stream().mapToInt(Integer::intValue).toArray();
         
-        Integer[] reverseList = list.toArray(newList);
-        
-        int[] intList = Arrays.stream(reverseList).mapToInt(Integer::intValue).toArray();
-        
-        return intList;
+        return arrays;
     }
 }
