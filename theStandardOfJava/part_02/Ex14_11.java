@@ -72,7 +72,7 @@ public class Ex14_11 {
             System.out.printf("[%s] - %d명, ", key, stdCountByLevel.get(key));
         System.out.println();
 
-        System.out.printf("%n4. 다중그룹화(학년별, 반별");
+        System.out.printf("%n4. 다중그룹화(학년별, 반별)");
         Map<Integer, Map<Integer, List<Student11>>> stdByHakAndBan = Stream.of(stdArr)
                         .collect(groupingBy(Student11::getHak, groupingBy(Student11::getBan)));
 
