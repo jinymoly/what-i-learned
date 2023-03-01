@@ -1,8 +1,6 @@
 package programmers;
 
 import java.util.ArrayList;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 /*
 짝수는 싫어요
 문제 설명
