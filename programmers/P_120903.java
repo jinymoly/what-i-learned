@@ -24,11 +24,10 @@ s1	s2	result
 public class P_120903 {
     public int solution(String[] s1, String[] s2) {
         int answer = 0;
-        for(int i = 1; i < s1.length; i++){
-            for(int j = 1; j < s2.length; j++){
-                if(s1[i].equals(s2[j])){
-                    answer ++;
-                }
+        for(String sa : s1){
+            for(String sb : s2){
+                if(sa.equals(sb))
+                answer++;
             }
         }
         
