@@ -32,4 +32,19 @@ public class P_120808 {
         int[] answer = {ja/max, mo/max};
         return answer;
     }
+
+    public int[] solution2(int numer1, int denom1, int numer2, int denom2) {
+        int ja = numer1 * denom2 + numer2 * denom1;
+        int mo = denom1 * denom2;
+        
+        
+        for(int i = mo; i >= 1; i--){
+            if(ja % i == 0 && mo % i == 0){
+                ja /= i;
+                mo /= i;
+            }
+        }
+        int[] answer = {ja, mo};
+        return answer;
+    }
 }
