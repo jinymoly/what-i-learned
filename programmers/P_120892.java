@@ -1,4 +1,8 @@
 package programmers;
+
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 /*
 암호 해독
 문제 설명
@@ -37,5 +41,12 @@ public class P_120892 {
         }
         answer = sb.toString();
         return answer;
+    }
+
+    public String solution2(String cipher, int code) {
+        return IntStream.range(0, cipher.length())
+                .filter(value -> value % code == code - 1)
+                .mapToObj(c -> String.valueOf(cipher.charAt(c)))
+                .collect(Collectors.joining());
     }
 }
