@@ -28,10 +28,15 @@ box	n	result
 public class P_120845 {
     public int solution(int[] box, int n) {
         int answer = 0;
-        int sum = box[0] * box[1] * box[2];
-        int dice = n * n * n;
-
-        answer = sum/dice;
+        int width = 0;
+        int depth = 0;
+        int height = 0;
+        
+        width = box[0] / n;
+        depth = box[1] / n;
+        height = box[2] / n;
+        
+        answer = width * depth * height;
         
         return answer;
     }
