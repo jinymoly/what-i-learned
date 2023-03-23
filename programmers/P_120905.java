@@ -1,6 +1,6 @@
 package programmers;
 
-import java.util.stream.IntStream;
+import java.util.Arrays;
 /*
 n의 배수 고르기
 문제 설명
@@ -28,11 +28,8 @@ numlist에서 12의 배수만을 남긴 [120, 600, 12, 12]를 return합니다.
  */
 public class P_120905 {
     public int[] solution(int n, int[] numlist){
-        int[] answer = {};
-        IntStream.range(0, numlist.length)
-                .filter(i -> i%n == 0)
-                .toArray();
-               
-        return answer;
+        return Arrays.stream(numlist)
+                    .filter(i -> i % n == 0)
+                    .toArray();
     }
 }
