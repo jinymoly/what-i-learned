@@ -38,4 +38,17 @@ public class P_120862 {
 
         return answer;
     }
+
+    public int solution2(int[] numbers){
+        int answer = 0;
+        int len = numbers.length;
+     
+        Arrays.sort(numbers);
+        int ans1 = numbers[0] * numbers[1];
+        int ans2 = numbers[len -1] * numbers[len -2];
+     
+        answer =  ans1 > ans2 ? ans1 : ans2;
+        
+        return answer;
+    }
 }
