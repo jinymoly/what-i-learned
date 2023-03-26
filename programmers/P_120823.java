@@ -36,7 +36,7 @@ public class P_120823 {
         //     System.out.println();
         // }
 
-        
+        // 문자열 반복 메서드 .repeat()
         for(int i = 1; i <= n; i++){
             System.out.println("*".repeat(i));
         }
