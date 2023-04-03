@@ -25,14 +25,15 @@ array	result
  */
 public class P_120899 {
     public int[] solution(int[] array) {
-        int maxNum = Arrays.stream(array).max().getAsInt();
-        int indexOf = Arrays.asList(array).indexOf(maxNum);
-
         int[] answer = new int[2];
-        answer[0] = maxNum;
-        answer[1] = indexOf;
-
+        int maxNum = Arrays.stream(array).max().getAsInt();
+        
+        for(int i = 0; i < array.length; i++){
+            if(array[i] == maxNum){
+                 answer[0] = maxNum;
+                 answer[1] = i;
+            }
+        }
         return answer;
-         
      }
 }
