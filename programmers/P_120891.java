@@ -27,8 +27,9 @@ public class P_120891 {
         public int solution(int order) {
             int answer = 0;
             int[] nums = Stream.of(String.valueOf(order).split("")).mapToInt(Integer::parseInt).toArray();
+            
             for(int i = 0; i < nums.length; i++){
-                if(i % 3 == 0){
+                if(nums[i] == 3 || nums[i] == 6 || nums[i] == 9){
                     answer ++;
                 }
             }
