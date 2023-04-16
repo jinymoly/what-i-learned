@@ -47,6 +47,7 @@ USER_ID	NICKNAME	전체주소	전화번호
 dhfkzmf09	찐찐	성남시 분당구 수내로 13 A동 1107호	010-5342-2914
 */
 -- 코드를 입력하세요
+-- 1. with절 사용해 가상 테이블 만들기 
 WITH THREE AS (
         SELECT WRITER_ID
         FROM USED_GOODS_BOARD
@@ -57,3 +58,15 @@ SELECT U.USER_ID, U.NICKNAME, U.CITY || ' ' || U.STREET_ADDRESS1 || ' ' || U.STR
 FROM THREE T, USED_GOODS_USER U
 WHERE T.WRITER_ID = U.USER_ID
 ORDER BY USER_ID DESC
+
+-- 2. join 
+SELECT U.USER_ID, U.NICKNAME, U.CITY || ' ' || U.STREET_ADDRESS1 || ' ' || U.STREET_ADDRESS2 AS 전체주소, SUBSTR(U.TLNO,0,3) || '-'  || SUBSTR(U.TLNO,4,4) || '-' || SUBSTR(U.TLNO,8) AS 전화번호
+FROM   USED_GOODS_USER U
+JOIN (
+          SELECT  WRITER_ID, COUNT(*) AS CNT
+          FROM    USED_GOODS_BOARD
+          GROUP BY WRITER_ID
+          HAVING  COUNT(*) >= 3
+      ) B
+    ON  U.USER_ID  = B.WRITER_ID
+ORDER BY U.USER_ID DESC
