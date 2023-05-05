@@ -1,7 +1,4 @@
 package programmers;
-
-import java.util.ArrayList;
-
 /*
 소문자로 바꾸기
 문제 설명
