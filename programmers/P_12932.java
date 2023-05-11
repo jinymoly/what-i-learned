@@ -1,7 +1,6 @@
 package programmers;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.stream.Stream;
 
 /*
 자연수 뒤집어 배열로 만들기
@@ -16,12 +15,11 @@ n	return
  */
 public class P_12932 {
     public int[] solution(long n) {
-        int nInt = (int)n;
+        StringBuffer sb = new StringBuffer(Long.toString(n));
+        
+        String str = sb.reverse().toString();
+        int[] answer = Stream.of(str.split("")).mapToInt(Integer::parseInt).toArray();
 
-        ArrayList aList = new ArrayList(nInt);
-        Collections.reverse(aList);
-
-        int[] answer = new int[aList.size()];
         return answer;
         
     }
