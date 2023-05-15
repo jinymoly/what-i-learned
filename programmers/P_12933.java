@@ -19,12 +19,12 @@ public class P_12933 {
         long answer = 0;
         String tmp = "";
         String[] strN = String.valueOf(n).split("");
+
         Arrays.sort(strN, Comparator.reverseOrder());
-        
         for(String s : strN){
             tmp += s;
         }
-        answer = Long.parseLong(tmp.toString());
+        answer = Long.parseLong(tmp);
         
         return answer;
     }
