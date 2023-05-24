@@ -24,7 +24,19 @@ my_string	result
 "1a2b3c4d123Z"안의 자연수는 1, 2, 3, 4, 123 입니다. 따라서 1 + 2 + 3 + 4 + 123 = 133 을 return합니다.
  */
 public class P_120864 {
-    public int solution(String my_string) {
+    public int solution(String my_string){
+        int answer = 0;
+        String[] nums = my_string.split("[a-zA-Z]+");
+
+        for(String num : nums){
+            if(num.matches("[0-9]+"))
+            answer += Integer.parseInt(num);
+        }
+        return answer;
+    }
+
+    // 연속된 수 상관없이 하나씩 나눌 때 
+    public int solution2(String my_string) {
         int answer = 0;
         char[] cArr = my_string.toCharArray();
         StringBuffer sb = new StringBuffer();
@@ -41,4 +53,6 @@ public class P_120864 {
 
         return answer;
     }
+
+
 }
