@@ -27,15 +27,10 @@ strArr[1]은 홀수번째 인덱스의 문자열이므로 대문자로 바꿔서
  */
 public class P_181875 {
     public String[] solution(String[] strArr) {
-        String[] answer = {};
-
         for(int i = 0; i < strArr.length; i++){
-            if(i % 2 == 0){
-                String up = strArr[i].toUpperCase();
-            } else {
-                strArr[i].toLowerCase();
-            }
+            strArr[i] = i % 2 == 0 ?
+            strArr[i].toLowerCase() : strArr[i].toUpperCase();
         }
-        return answer;
+        return strArr;
     }
 }
