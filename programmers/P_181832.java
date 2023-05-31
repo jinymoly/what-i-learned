@@ -37,32 +37,48 @@ n	result
 public class P_181832 {
     public int[][] solution(int n) {
         int[][] answer = new int[n][n];
-        int x = 0;
-        int y = 0;
-        String direction = "right";
-        
-        for(int i = 0; i < n*n; i++){
-            answer[x][y] = i + 1;
-            if(direction.equals("right")){
-                y += 1;
-                if(y == n-1 || answer[x][y+1] != 0){
-                    direction = "down";
-                }
-            } else if(direction.equals("down")){
-                x += 1;
-                if(x == n-1 || answer[x+1][y] != 0){
-                    direction = "left";
-                }
-            } else if(direction.equals("left")){
-                y -= 1;
-                if(y == 0 || answer[x][y-1] != 0){
-                    direction = "up";
-                }
-            } else if(direction.equals("up")){
-                x -= 1;
-                if(x == n-1 || answer[x-1][y] != 0){
-                    direction = "right";
-                }
+        int row = 0;
+        int column = 0;
+        int value = 1;
+
+        // 0으로 초기화
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                answer[i][j] = 0;
+            }
+        }
+
+        // start point
+        row = 0;
+        column = 0;
+        answer[row][column] = 1;
+        value = 2;
+
+        // start
+        while(value <= n * n){
+            // direction : right
+            while(column + 1 < n && answer[row][column + 1] == 0){
+                column++;
+                answer[row][column] = value;
+                value++;
+            }
+            // direction : down
+            while(row + 1 < n && answer[row + 1][column] == 0){
+                row++;
+                answer[row][column] = value;
+                value++;
+            }
+            // direction : left
+            while(column - 1 >= 0 && answer[row][column - 1] == 0){
+                column--;
+                answer[row][column] = value;
+                value++;
+            }
+            // direction : up
+            while(row - 1 >= 0 && answer[row - 1][column] == 0){
+                row--;
+                answer[row][column] = value;
+                value++;
             }
         }
         return answer;
