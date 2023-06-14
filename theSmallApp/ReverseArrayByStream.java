@@ -12,7 +12,7 @@ class Main {
         StringBuilder sb = new StringBuilder(str);
         return sb.reverse().toString();
         
-        }
+    }
 
     public static void main(String[] args) {
         Main T = new Main();
