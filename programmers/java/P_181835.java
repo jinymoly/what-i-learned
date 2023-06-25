@@ -1,4 +1,7 @@
 package programmers.java;
+
+import java.util.stream.IntStream;
+
 /*
 조건에 맞게 수열 변환하기 3
 문제 설명
@@ -38,5 +41,13 @@ public class P_181835 {
             }
         }
         return answer;
+    }
+
+    public int[] solution2(int[] arr, int k){
+        if( k % 2 == 1){
+            return IntStream.of(arr).map(i -> i * k).toArray();
+        } else {
+            return IntStream.of(arr).map(i -> i + k).toArray();
+        }
     }
 }
