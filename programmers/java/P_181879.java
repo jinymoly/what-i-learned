@@ -27,13 +27,13 @@ public class P_181879 {
         int answer = 0;
         int init = 1;
 
-        if(num_list.length >= 11){
-            for(int num : num_list)
+        for(int num : num_list){
+            if(num_list.length >= 11){
                 answer += num;
-        } else {
-            for(int num : num_list)
+            } else {
                 init *= num;
                 answer = init;
+            }
         }
         return answer;
     }
