@@ -1,6 +1,8 @@
 package programmers.java;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 /*
 전국 대회 선발 고사
 문제 설명
@@ -35,11 +37,22 @@ public class P_181851 {
     public int solution(int[] rank, boolean[] attendance) {
         int answer = 0;
 
-        for(boolean atd : attendance){
-            if(atd == true){
-              Arrays.stream(rank).boxed().toArray();
+        HashMap<Integer, Integer> student = new HashMap<>();
+    
+        // key : rank, value : 참여 여부에 따른 rank의 순위 
+        for(int i = 0; i < rank.length; i++){
+            if(attendance[i]){ // true이면 
+                student.put(rank[i], i);
             }
         }
+        ArrayList<Integer> studentSort = new ArrayList<>(student.keySet());
+        Collections.sort(studentSort);
+        
+        int a = student.get(studentSort.get(0));
+        int b = student.get(studentSort.get(1));
+        int c = student.get(studentSort.get(2));
+        
+        answer = 10000 * a + 100 * b + c;
         return answer;
     }
 }
