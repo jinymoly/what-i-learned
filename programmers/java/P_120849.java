@@ -21,7 +21,6 @@ my_string	result
  */
 public class P_120849 {
     public String solution(String my_string) {
-        String answer = "";
         return my_string.replaceAll("[aeiou]","");
     }
 }
