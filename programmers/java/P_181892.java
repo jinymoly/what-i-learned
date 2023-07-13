@@ -1,6 +1,7 @@
 package programmers.java;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -34,5 +35,9 @@ public class P_181892 {
         }
         answer = nums.stream().mapToInt(Integer::intValue).toArray();
         return answer;
+    }
+
+    public int[] solution2(int[] num_list, int n){
+        return Arrays.copyOfRange(num_list, n - 1, num_list.length);
     }
 }
