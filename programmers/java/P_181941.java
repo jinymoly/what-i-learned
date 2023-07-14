@@ -22,4 +22,8 @@ public class P_181941 {
        answer = sb.toString();
         return answer;
     }
+    
+    public String solution2(String[] arr){
+        return String.join("", arr);
+    }
 }
