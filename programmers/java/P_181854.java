@@ -21,6 +21,8 @@ arr	n	result
 예제 2번의 arr의 길이는 4로 짝수입니다. 따라서 arr의 홀수 인덱스 1, 3에 주어진 n 값인 100을 더하면 [444, 655, 666, 877]이 됩니다. 따라서 [444, 655, 666, 877]를 return 합니다.
  */
 
+import java.util.Arrays;
+
 public class P_181854 {
     public int[] solution(int[] arr, int n) {
         int[] answer = new int[arr.length];
@@ -41,5 +43,15 @@ public class P_181854 {
             }
         }
         return answer;
+    }
+
+    public int[] solution2(int[] arr, int n){
+       int[] answer = Arrays.copyOf(arr, arr.length);
+
+       // 짝수 인덱스 위치에 해당하는 요소만 n을 더해줌 >>  i += 2, 짝수 인덱스로 이동
+       for(int i = 0; i < answer.length; i += 2){
+        answer[i] += n;
+       }
+       return answer;
     }
 }
