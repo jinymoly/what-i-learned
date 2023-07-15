@@ -20,26 +20,26 @@ arr	n	result
 
 예제 2번의 arr의 길이는 4로 짝수입니다. 따라서 arr의 홀수 인덱스 1, 3에 주어진 n 값인 100을 더하면 [444, 655, 666, 877]이 됩니다. 따라서 [444, 655, 666, 877]를 return 합니다.
  */
-import java.util.ArrayList;
 
 public class P_181854 {
     public int[] solution(int[] arr, int n) {
-        int[] answer = {};
-        ArrayList<Integer> nums = new ArrayList<>(arr.length);
+        int[] answer = new int[arr.length];
 
         for(int i = 0; i < arr.length; i++){
-            if(nums.size() % 2 == 0){
+            if(arr.length % 2 == 0){
                 if(i % 2 == 1){
-                    arr[i] += n;
+                    answer[i] = arr[i] + n;
+                } else {
+                    answer[i] = arr[i];
                 }
             } else {
                 if(i % 2 == 0){
-                    arr[i] += n;
+                    answer[i] = arr[i] + n;
+                } else {
+                    answer[i] = arr[i];
                 }
             }
-            answer = arr;
         }
-
         return answer;
     }
 }
