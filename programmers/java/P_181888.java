@@ -1,4 +1,7 @@
 package programmers.java;
+
+import java.util.stream.IntStream;
+
 /*
 n개 간격의 원소들
 문제 설명
@@ -22,14 +25,9 @@ num_list	n	result
  */
 public class P_181888 {
     public int[] solution(int[] num_list, int n) {
-        int[] answer = new int[num_list.length];
-        int index = 0;
+        int[] answer = {};
         
-        for(int i = 0; i < num_list.length; i++){
-           if(i % n == 0){
-               answer[index++] = num_list[i];
-           }
-        }
+        answer = IntStream.of(num_list).filter(i -> i % n == 0).toArray();
         return answer;
     }
 }
