@@ -25,11 +25,9 @@ num_list	n	result
  */
 public class P_181888 {
     public int[] solution(int[] num_list, int n) {
-        int[] answer = {};
-        answer = IntStream.range(0, num_list.length) // 0부터 num_list 까지 범위 생성
-                            .filter(i -> i % 2 == 0) // n의 배수 인덱스 필터링 
-                            .map(i -> num_list[i]) // 그 인덱스의 num_list 원소 추출
-                            .toArray(); // int[] 배열로 변환 후 리턴 
-        return answer;
+        return IntStream.range(0, num_list.length)
+                            .filter(i -> i % 2 == 0)
+                            .map(i -> num_list[i])
+                            .toArray();
     }
 }
