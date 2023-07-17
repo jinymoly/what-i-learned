@@ -29,11 +29,15 @@ public class P_181874 {
         String answer = "";
         StringBuilder sb = new StringBuilder(myString.length());
 
-        for(char str : myString.toCharArray()){
-            if(str == 'a'){
+        for(char ch : myString.toCharArray()){
+            if(ch == 'a'){
                 sb.append('A');
+            } else if(ch == 'A'){
+                sb.append('A');
+            }else if(Character.isUpperCase(ch)){
+                sb.append(Character.toLowerCase(ch));
             } else {
-                sb.append(Character.toLowerCase(str));
+                sb.append(Character.toLowerCase(ch));
             }
         }
         answer = sb.toString();
