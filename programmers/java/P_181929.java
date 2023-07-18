@@ -24,7 +24,7 @@ public class P_181929 {
         int answer = 0;
         int sum = 0;
         int square = 0;
-        int product = 0;
+        int product = 1; // 0이면 뭘 곱해도 항상 0이 리턴됨 ㅠ 
         
         for(int i = 0; i < num_list.length; i++){
             sum += num_list[i];
