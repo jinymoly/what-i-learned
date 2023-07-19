@@ -30,15 +30,16 @@ public class P_181926 {
 
         for(char str : control.toCharArray()){
             if(str == 'w'){
-                answer = n + 1; 
+                n = n + 1; 
             } else if(str == 's'){
-                answer = n - 1;
+                n = n - 1;
             } else if(str == 'd'){
-                answer = n + 10;
+                n = n + 10;
             } else if(str == 'a'){
-                answer = n - 10;
+                n = n - 10;
             }
         }
+        answer = n;
         return answer;
     }
 }
