@@ -24,7 +24,7 @@ n	k	result
  */
 public class P_181901 {
     public int[] solution(int n, int k) {
-        List<Integer> nums = new ArrayList()<>();
+        List<Integer> nums = new ArrayList<>();
         
         for(int i = 1; k * i <= n; i++){
             nums.add(k * i);
