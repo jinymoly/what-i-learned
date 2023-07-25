@@ -26,18 +26,17 @@ public class P_181927 {
     public int[] solution(int[] num_list) {
         List<Integer> nums = new ArrayList<>();
         
-        for(int i = 0; i <= 10; i++){
+        for(int i = 0; i < num_list.length; i++){
             nums.add(num_list[i]);
-
-            int prev = num_list[i - 1];
-            int current = num_list[i];
+        }
+            int prev = num_list[num_list.length - 2];
+            int current = num_list[num_list.length - 1];
 
             if(current > prev){
                 nums.add(current - prev);
             } else {
                 nums.add(current * 2);
             }
-        }
         return nums.stream().mapToInt(Integer::intValue).toArray();
     }
 }
