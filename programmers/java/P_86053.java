@@ -81,7 +81,6 @@ public class P_86053 {
                 if(a <= gold && b <= silver && ab <= goldAndSilver){
                     end = mid - 1;
                     answer = Math.min(mid, answer);
-                    continue;
                 } else {
                     start = mid + 1;
                 }
