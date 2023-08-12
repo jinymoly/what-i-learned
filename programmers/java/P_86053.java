@@ -42,7 +42,10 @@ a	b	g	s	w	t	result
 public class P_86053 {
     public long solution(int a, int b, int[] g, int[] s, int[] w, int[] t) {
         int city = g.length;
-        
+        long total = 0L;
+        long totalG = 0L;
+        long totalS = 0L;
+
         long[]time = new long[city];
         for(int i = 0; i < city; i++){
             time[i] = Math.min((long)g[i] * t[i], (long)s[i] * t[i]);
