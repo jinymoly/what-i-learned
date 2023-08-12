@@ -88,4 +88,43 @@ public class P_86053 {
             }
         return answer;
     }
+
+    //refactor
+    public long solution2(int a, int b, int[] g, int[] s, int[] w, int[] t) {
+        final long max = (long)(1e9 * 2 * 1e5 * 2); 
+
+        long start = 0; 
+        long end = max;
+        long answer = max;
+        int citylength = s.length;
+
+        while(start <= end){
+            long mid = (start + end) / 2;
+            int gold = 0;
+            int silver = 0;
+            int goldAndSilver = 0;
+
+            for(int i = 0; i < citylength; i++){
+                long moveCount = mid / (t[i] * 2);
+
+                if(mid % (t[i] * 2) >= t[i]){ 
+                    moveCount++;
+                }
+
+                gold += Math.min(g[i], moveCount * w[i]);
+                silver += Math.min(s[i], moveCount * w[i]);
+                goldAndSilver += Math.min(g[i] + s[i], moveCount * w[i]);
+            }
+
+            if(a <= gold && b <= silver && a + b <= goldAndSilver){
+                end = mid - 1;
+                answer = Math.min(mid, answer);
+            } else {
+                start = mid + 1;
+            }
+        }
+        return answer;
+    }
+
+
 }
