@@ -1,7 +1,5 @@
 package programmers.java;
 
-import java.util.Arrays;
-
 /*
 금과 은 운반하기
 문제 설명
@@ -41,23 +39,53 @@ a	b	g	s	w	t	result
  */
 public class P_86053 {
     public long solution(int a, int b, int[] g, int[] s, int[] w, int[] t) {
-        int city = g.length;
-        long total = 0L;
-        long totalG = 0L;
-        long totalS = 0L;
-
-        long[]time = new long[city];
-        for(int i = 0; i < city; i++){
-            time[i] = Math.min((long)g[i] * t[i], (long)s[i] * t[i]);
-        }
+        final long max = (long)(1e9 * 2 * 1e5 * 2); // 문제에서 금과 은의 최대 값은 10^9, 한 번에 옮길 수 있는 최소 무게 1, 옮기는데 걸리는 최대 시간 10^5 * 2(왕복) >> ((10^9 * 2) / 1) * (10^5 * 2)
         
-        long newCityTime = Long.MAX_VALUE;
-        for(int i = 0; i < city; i++){
-            long move = (long)Math.ceil((double) a / w[i]);
-            newCityTime = Math.min(newCityTime, move * t[i]);
-        }
-        long answer = Math.min(Arrays.stream(time).sum(), newCityTime);
-       
+        long start = 0; 
+        long end = max;
+        long answer = max;
+        int citylength = s.length;
+
+        long goldC, // 지금 가지고 있는 금의 무게 
+             silverC, // 지금 가지고 있는 은의 무게
+             weightC, // 한 번 운반 시 최대 광물 무게
+             timeC, // 한 번 운반 시 소요 시간
+             ab = a + b;
+
+        // 만족해야 할 조건 
+        // a <= goldMax, b <= silverMax, a+b <= (goldMax + silverMin = goldMin + silverMax = goldAndSilver)
+
+        // 이분탐색
+        while(start <= end){
+            long mid = (start + end) / 2;
+            int gold = 0;
+            int silver = 0;
+            int goldAndSilver = 0;
+
+            // 모든 도시들을 순회하며 금과 은을 운반한다. 단, 주어진 시간 내에 운반할 수 있는 양만큼만 운반
+            for(int i = 0; i < citylength; i++){
+                goldC = g[i];
+                silverC = s[i];
+                weightC = w[i];
+                timeC = t[i];
+
+                long moveCount = mid / (timeC * 2);
+
+                if(mid % (timeC * 2) >= t[i]){ // 나머지가 t[i]편도 시간보다 크거나 같다면 한 번 더 움직여야 함 
+                    moveCount++;
+                } 
+                    gold += Math.min(goldC, moveCount * weightC);
+                    silver += Math.min(silverC, moveCount * weightC);
+                    goldAndSilver += Math.min(goldC + silverC, moveCount * weightC);
+                }
+                if(a <= gold && b <= silver && ab <= goldAndSilver){
+                    end = mid - 1;
+                    answer = Math.min(mid, answer);
+                    continue;
+                } else {
+                    start = mid + 1;
+                }
+            }
         return answer;
     }
 }
