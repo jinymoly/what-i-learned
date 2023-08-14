@@ -1,4 +1,7 @@
 package programmers.java;
+
+import java.util.stream.IntStream;
+
 /*
 카운트 다운
 문제 설명
@@ -23,5 +26,14 @@ public class P_181899 {
             answer[i] = start - i;
         }
         return answer;
+    }
+
+    //Lambda로 풀어보기
+    public int[] solution2(int start, int end){
+        int size = start - end + 1;
+
+        return IntStream.iterate(start, i -> i - 1)
+                        .limit(size)
+                        .toArray();
     }
 }
