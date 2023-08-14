@@ -36,4 +36,11 @@ public class P_181899 {
                         .limit(size)
                         .toArray();
     }
+
+    // Lambda로 더 간단하게 리팩토링 
+    public int[] solution3(int start, int end){
+        return IntStream.rangeClosed(end, start)
+                        .map(i -> start - end + 1)
+                        .toArray();
+    }
 }
