@@ -32,15 +32,15 @@ public class P_181899 {
     public int[] solution2(int start, int end){
         int size = start - end + 1;
 
-        return IntStream.iterate(start, i -> i - 1)
-                        .limit(size)
+        return IntStream.iterate(start, i -> i - 1) // start부터 i -> i - 1 해서 값을 계속 감소 
+                        .limit(size) // 원하는 크기까지의 요소만 걸러내 
                         .toArray();
     }
 
     // Lambda로 더 간단하게 리팩토링 
     public int[] solution3(int start, int end){
-        return IntStream.rangeClosed(end, start)
-                        .map(i -> start - end + 1)
+        return IntStream.rangeClosed(end, start) // end부터 start까지 범위 내 정수 스트림 생성
+                        .map(i -> start - end + 1) // 각 정수에 대해 변환 
                         .toArray();
     }
 }
