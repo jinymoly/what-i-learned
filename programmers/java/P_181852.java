@@ -29,4 +29,13 @@ public class P_181852 {
                             .toArray();
         return answer;
     }
+    // copyOfRange 활용 
+    public int[] solution2(int[] num_list){
+        int[] answer = {};
+
+        Arrays.sort(num_list);
+        answer = Arrays.copyOfRange(num_list, 5, num_list.length);
+
+        return answer;
+    }
 }
