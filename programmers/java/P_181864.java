@@ -24,7 +24,6 @@ myString	pat	result
  */
 public class P_181864 {
     public int solution(String myString, String pat) {
-        int answer = 0;
         String reverse = "";
 
         if(isOnlyAB(myString) && isOnlyAB(pat)){
@@ -35,16 +34,10 @@ public class P_181864 {
                     reverse += "A";
                 }
             }
-
-            if(reverse.contains(pat)){
-                answer = 1;
-            } else {
-                answer = 0;
-            }
         }
-        return answer;
+        return reverse.contains(pat) ? 1 : 0;
     }
-    
+
     private boolean isOnlyAB(String str){
         for(char c : str.toCharArray()){
             if(c !='A' && c != 'B'){
@@ -52,5 +45,29 @@ public class P_181864 {
             }
         }
         return true;
+    }
+
+    // 리팩토링 
+    public int solution2(String myString, String pat){
+        if(!isOnlyAB(myString) || !isOnlyAB(pat))
+            return 0;
+
+        String reverse = reverseStr(myString);
+
+        return reverse.contains(pat) ? 1 : 0;
+    }
+
+    private String reverseStr(String str){
+        StringBuilder reverse = new StringBuilder();
+
+        for(int i = 0; i < str.length(); i++){
+            char c = str.charAt(i);
+            if(c == 'A'){
+                reverse.append('B');
+            } else {
+                reverse.append('A');
+            }
+        }
+        return reverse.toString();
     }
 }
