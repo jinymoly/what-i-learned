@@ -31,20 +31,29 @@ n	result
 주어진 수가 1인 경우에 대한 조건 추가
  */
 public class P_12943 {
-    public int solution(int num) {
+    public int solution(long num) {
         int answer = 0;
-        int count = 0;
         
         while(num != 1){
-            num = sum(num);
-            count++;
-            if(count == 500){
+            if(num % 2 == 0){
+                num /= 2;
+            } else {
+                num = num * 3 + 1;
+            }
+            answer ++;
+            
+            if(answer >= 500){
                 answer = -1;
-            }   
+                break;
+            }
         }
-        return answer == 0 ? count : answer;
+        return answer;
     }
-    private int sum(int num){
-        return num % 2 == 0 ? num / 2 : num * 3 + 1;
+
+    public int solution2(int num){
+        int answer = 0;
+        long digit = (long)num;
+
+        long (n % 2 == 0)? n/2 : n * 3 + 1;
     }
 }
