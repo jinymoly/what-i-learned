@@ -51,9 +51,13 @@ public class P_12943 {
     }
 
     public int solution2(int num){
-        int answer = 0;
         long digit = (long)num;
 
-        long (n % 2 == 0)? n/2 : n * 3 + 1;
+        for(int count = 0; count < 500; count++){
+            if(digit == 1)
+            return 0;
+            digit = (digit % 2) == 0? digit / 2 : digit * 3 + 1;
+        }        
+        return -1;
     }
 }
