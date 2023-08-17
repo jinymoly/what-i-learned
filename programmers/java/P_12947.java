@@ -33,14 +33,10 @@ public class P_12947 {
         int hap = 0;
         String[] splitInt = String.valueOf(x).split("");
         
-        for(int i = 0; i < splitInt.length; i++){
-            int[] nums = new int[splitInt.length];
-            for(int num : nums){
-                hap += num;
-            }
+        for(String num : splitInt){
+            hap += Integer.parseInt(num);
         }
-        answer = (hap / x) > 0 ? true : false;
+        answer = (x % hap) == 0 ? true : false;
         return answer;
     }
-    
 }
