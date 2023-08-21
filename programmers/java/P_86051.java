@@ -1,4 +1,7 @@
 package programmers.java;
+
+import java.util.HashSet;
+
 /*
 없는 숫자 더하기
 문제 설명
@@ -36,6 +39,23 @@ public class P_86051 {
         }
 
         return answer;
+    }
+
+    // 중복 없이 저장하는 HashSet에 담아
+    public int solution2(int[] numbers){
+        int answer = 0;
+        HashSet<Integer> numSet = new HashSet<>();
+
+        for(int num : numbers){
+            numSet.add(num);
+        }
+
+        for(int i = 0; i <=9; i++){
+            if(!numSet.contains(i))
+            answer += i;
+        }
+        return answer;
+
     }
     
 }
