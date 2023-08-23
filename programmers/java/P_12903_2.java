@@ -26,4 +26,13 @@ public class P_12903_2 {
         if(n % 2 == 1) answer += "수";
         return answer;
     }
+
+    public String solution2(int n){
+        StringBuilder answer = new StringBuilder();
+        for(int i = 0; i < n; i++){
+            answer.append(i % 2 == 0 ? "수" : "박");
+        }
+
+        return answer.toString();
+    }
 }
