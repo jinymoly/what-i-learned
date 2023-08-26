@@ -54,4 +54,17 @@ public class P_181856 {
         }
         return answer;
     }
+
+    public int simpleSolution(int[] arr1, int[]arr2){
+        int arr1Sum = IntStream.of(arr1).sum();
+        int arr2Sum = IntStream.of(arr2).sum();
+
+        if(arr1Sum < arr2Sum){
+            return -1;
+        } else if(arr1Sum > arr2Sum){
+            return 1;
+        } else {
+            return arr1.length - arr2.length;
+        }
+    }
 }
