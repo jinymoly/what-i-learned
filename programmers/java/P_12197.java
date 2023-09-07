@@ -14,19 +14,18 @@ s	return
 "Zbcdefg"	"gfedcbZ"
  */
 public class P_12197 {
-        public String solution(String s) {
-            String answer = "";
-            
-            char[] chars = s.toCharArray();
-            Arrays.sort(chars);
-            
-            for(int i = 0; i < chars.length / 2; i++){
-                char temp = chars[i];
-                chars[i] = chars[chars.length - 1 -i ];
-                chars[chars.length - 1 - i] = temp;
-            }
-            answer = new String(chars);
-            return answer;
+    public String solution(String s) {
+        String answer = "";
+        
+        char[] chars = s.toCharArray();
+        Arrays.sort(chars);
+        
+        for(int i = 0; i < chars.length / 2; i++){
+            char temp = chars[i];
+            chars[i] = chars[chars.length - 1 -i ];
+            chars[chars.length - 1 - i] = temp;
         }
+        answer = new String(chars);
+        return answer;
     }
 }
