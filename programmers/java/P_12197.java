@@ -1,6 +1,8 @@
 package programmers.java;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 /*
 문자열 내림차순으로 배치하기
 문제 설명
@@ -26,6 +28,16 @@ public class P_12197 {
             chars[chars.length - 1 - i] = temp;
         }
         answer = new String(chars);
+        return answer;
+    }
+
+    // 이게 속도가 느리긴 하네 
+    public String solutionStream(String s){
+        String answer = Stream.of(s.split("")) // 문자열을 문자 배열로 분할
+                                .filter(c -> Character.isLetter(c.charAt(0))) // 문자만 선택
+                                .sorted((a, b) -> b.compareTo(a)) // 내림차순 
+                                .collect(Collectors.joining()); // 문자열 합치기
+
         return answer;
     }
 }
