@@ -17,8 +17,12 @@ arr	answer
 입출력 예 설명
 입출력 예 #1,2
 문제의 예시와 같습니다.
-'''
 
+
+파이썬 처음 해보는데 
+자바 때처럼 if for 하고 본능적(?)으로 괄호를 넣고 지우네 
+'''
+# 현재 원소와 이전 원소를 비교해 중복을 제거한다 - 이는 처음과 끝에 중복된 값이 있을 때 불필요한 연산을 ~ 
 def solution(arr):
     answer = []
     
@@ -26,4 +30,14 @@ def solution(arr):
         if i == 0 or arr[i] != arr[i - 1]:
             answer.append(arr[i])
         
+    return answer
+
+# 파이썬은 효율성 점수도 나오네 ... 최적화해보자 
+def solution2(arr):
+    answer = [arr[0]] # 첫 번째 원소를 일단 결과 배열에 추가 - 중복된 값이 배열의 처음에 있어도 불필요한 연산을 하지 않아도 된다
+
+    for i in range(1, len(arr)):
+        if arr[i] != arr[i - 1]:
+            answer.append(arr[i])
+    
     return answer
