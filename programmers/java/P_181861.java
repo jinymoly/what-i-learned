@@ -60,7 +60,7 @@ public class P_181861 {
     }
     
     static void addRepeatedElements(List<Integer> numList, int count, int element){
-        for(int i = 1; i < count; i++){
+        for(int i = 0; i < count; i++){
             numList.add(element);
         }
     }
