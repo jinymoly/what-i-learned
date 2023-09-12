@@ -38,9 +38,10 @@ sizes	result
  */
 public class P_86491 {
     public int solution(int[][] sizes) {
-        int maxHorizontalLength = 0;
-        int maxVerticalLength = 0;
+        int maxHorizontalLength = 0; // 최대 가로 길이
+        int maxVerticalLength = 0; // 최대 세로 길이
         
+        // 모든 명함의 가로, 세로 길이 비교하여 최대값 찾음
         for(int[] size : sizes){
             int horizontalLength = Math.max(size[0], size[1]);
             int verticalLength = Math.min(size[0], size[1]);
@@ -48,7 +49,9 @@ public class P_86491 {
             maxHorizontalLength = Math.max(maxHorizontalLength, horizontalLength);
             maxVerticalLength = Math.max(maxVerticalLength, verticalLength);
         }
+        // 최소한의 지갑 크기 
         int answer = maxHorizontalLength * maxVerticalLength;
+        
         return answer;
     }
 }
