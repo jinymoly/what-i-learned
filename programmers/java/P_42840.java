@@ -55,18 +55,18 @@ public class P_42840 {
             }
         }
         
-        int topScore = Math.max(score[0], Math.max(score[1], score[2]));
+        int topScorePerson = Math.max(score[0], Math.max(score[1], score[2]));
 
         List<Integer> bestPerson = new ArrayList<>();
         
         for(int i = 0; i < score.length; i++){
-            if(score[i] == topScore){
-                bestPerson.add(i);
+            if(score[i] == topScorePerson){
+                bestPerson.add(i + 1); // 번호가 1부터 시작이라 + 1 !!!! 
             }
         }
 
         answer = new int[bestPerson.size()];
-        
+
         for(int i = 0; i < bestPerson.size(); i++){
             answer[i] = bestPerson.get(i);
         }
