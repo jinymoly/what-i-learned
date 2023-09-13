@@ -55,8 +55,10 @@ public class P_42840 {
             }
         }
         
+        // 최고 점수 사람 
         int topScorePerson = Math.max(score[0], Math.max(score[1], score[2]));
 
+        // 점수가 가장 높은 사람 여럿 일 수 있어서 arrayList에 담아 
         List<Integer> bestPerson = new ArrayList<>();
         
         for(int i = 0; i < score.length; i++){
@@ -65,6 +67,7 @@ public class P_42840 {
             }
         }
 
+        // 그래서 몇 명인디 
         answer = new int[bestPerson.size()];
 
         for(int i = 0; i < bestPerson.size(); i++){
