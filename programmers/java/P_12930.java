@@ -16,23 +16,20 @@ s	return
 public class P_12930 {
     public String solution(String s) {
         String answer = "";
-        String[] words = s.split(" ");
-        StringBuilder result = new StringBuilder();
+        String[] words = s.split(" ", -1); // 공백 기준으로 문자열 자르되 마지막 빈 문자열도 포함
 
-        for(String word : words){
-            StringBuilder currentWord = new StringBuilder();
-            for(int i = 0; i < word.length(); i++){
-                char c = word.charAt(i);
-                if(i % 2 == 0){
-                    currentWord.append(Character.toUpperCase(c));
+        for(int i = 0; i < words.length; i++){
+            String[] word = words[i].split("");
+            for(int j = 0; j < word.length; j++){
+                if(j % 2 == 0){
+                    word[j] = word[j].toUpperCase(); // 원본 문자열을 변경하지 않는 메서드이므로 문자열을 다시 해당 변수에 저장해야함
                 } else {
-                    currentWord.append(Character.toLowerCase(c));
+                    word[j] = word[j].toLowerCase(); // 원본 문자열을 변경하지 않는 메서드이므로 문자열을 다시 해당 변수에 저장해야함
                 }
             }
-            result.append(currentWord.toString())
-                    .append(" ");
+            words[i] = String.join("", word); // 단어 내 문자열 합침 
         }
-        answer = result.toString().trim(); // 공백 제거
+        answer = String.join(" ", words); // 그 단어에 공백을 넣어 문자열로 합침
         return answer;
     }
 }
