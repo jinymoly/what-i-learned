@@ -35,6 +35,7 @@ public class P_68935 {
         while (n > 0) {
             int remainder = n % 3; // 나머지
             ternary.append(remainder);
+            n /= 3; // 몫 
         }
 
         // 3진수를 뒤집어
@@ -43,11 +44,11 @@ public class P_68935 {
         }
 
         // 10진법으로 표현 
-        int power = 1; // 거듭제곱
+        int power = 1; // 10진수의 자릿수
         for(int i = 0; i < reverse.length(); i++){
             int digit = Character.getNumericValue(reverse.charAt(i)); // 문자를 숫자로
-            answer += digit * power;
-            power *= 3;
+            answer += digit * power; // 현재 자릿수와 곱한 값
+            power *= 3; // 다음 자릿수로 이동
         }
 
         return answer;
