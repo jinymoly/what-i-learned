@@ -1,4 +1,5 @@
 package programmers.java;
+
 /*
 3진법 뒤집기
 문제 설명
@@ -28,6 +29,7 @@ public class P_68935 {
     public int solution(int n){
         int answer = 0;
         StringBuilder ternary = new StringBuilder(); // 3진수 
+        StringBuilder reverse = new StringBuilder();
 
         // 3진수 저장
         while (n > 0) {
@@ -36,10 +38,17 @@ public class P_68935 {
         }
 
         // 3진수를 뒤집어
-
+        for(int i = ternary.length() - 1; i >= 0; i--){
+            reverse.append(ternary.charAt(i));
+        }
 
         // 10진법으로 표현 
-
+        int power = 1; // 거듭제곱
+        for(int i = 0; i < reverse.length(); i++){
+            int digit = Character.getNumericValue(reverse.charAt(i)); // 문자를 숫자로
+            answer += digit * power;
+            power *= 3;
+        }
 
         return answer;
     }
