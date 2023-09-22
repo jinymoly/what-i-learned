@@ -40,4 +40,12 @@ public class P_181939 {
         
         return answer;
     }
+    
+    // 더 간단하게 
+    public int solution2(int a, int b){
+        int ab = Integer.parseInt(String.valueOf(a) + String.valueOf(b));
+        int ba = Integer.parseInt(String.valueOf(b) + String.valueOf(a));
+
+        return ab > ba ? ab : ba;
+    }
 }
