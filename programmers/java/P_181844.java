@@ -32,7 +32,7 @@ public class P_181844 {
         for(int i = 0; i < arr.length; i++){
             boolean shouldDelete = false;
             for(int j = 0;  j < delete_list.length; j++){
-                if(arr[i] == delete_list[i]){
+                if(arr[i] == delete_list[j]){
                     shouldDelete = true;
                     break;
                 }
