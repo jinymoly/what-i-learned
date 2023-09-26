@@ -30,10 +30,15 @@ public class P_181844 {
         ArrayList<Integer> num = new ArrayList<>();
         
         for(int i = 0; i < arr.length; i++){
+            boolean shouldDelete = false;
             for(int j = 0;  j < delete_list.length; j++){
-                if(arr[i] != delete_list[i]){
-                    num.add(arr[i]);
+                if(arr[i] == delete_list[i]){
+                    shouldDelete = true;
+                    break;
                 }
+            }
+            if(!shouldDelete){
+                num.add(arr[i]);
             }
         }
 
