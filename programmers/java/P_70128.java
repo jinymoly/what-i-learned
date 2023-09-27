@@ -21,7 +21,7 @@ a와 b의 내적은 1*(-3) + 2*(-1) + 3*0 + 4*2 = 3 입니다.
 
 a와 b의 내적은 (-1)*1 + 0*0 + 1*(-1) = -2 입니다.
  */
-public class P_12903_3 {
+public class P_70128 {
     public int solution(int[] a, int[] b) {
         int answer = 0;
         for(int i = 0; i < a.length; i++){

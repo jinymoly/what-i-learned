@@ -45,7 +45,7 @@ public class P_131705 {
                 int sum = number[i] + number[left] + number[right];
                 if(sum == 0){
                     answer++;
-                    while(left < right && number[left] == number[left + 1]){
+                    while(left < right && number[left] == number[left - 1]){
                         left++;
                     }
                     while(left > right && number[right] == number[right - 1]){

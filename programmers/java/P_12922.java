@@ -11,7 +11,7 @@ n	return
 3	"수박수"
 4	"수박수박"
  */
-public class P_12903_2 {
+public class P_12922 {
     public String solution(int n){
         String answer = "";
         int quotient = n / 2;
