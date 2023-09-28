@@ -25,7 +25,6 @@ myString	result
  */
 public class P_181834 {
     public String solution(String myString) {
-        String answer = "";
         char[] chars = myString.toCharArray();
         
         for(int i = 0; i < chars.length; i++){
@@ -33,7 +32,6 @@ public class P_181834 {
                 chars[i] = 'l';
             }
         }
-        answer = chars.toString();
-        return answer;
+        return new String(chars);
     }
 }
