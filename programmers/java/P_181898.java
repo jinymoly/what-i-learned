@@ -9,6 +9,7 @@ package programmers.java;
 제한사항
 3 ≤ arr의 길이 ≤ 100'000
 arr의 원소는 전부 1 또는 0입니다.
+
 입출력 예
 arr	idx	result
 [0, 0, 0, 1]	1	3
