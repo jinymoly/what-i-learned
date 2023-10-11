@@ -2,7 +2,7 @@ package leetCode.java;
 
 import java.util.HashMap;
 
-public class two_sum {
+public class Two_Sum {
     public int[] twoSum(int[] nums, int target) {
         HashMap<Integer, Integer> numMap = new HashMap<Integer, Integer>();
         
