@@ -51,4 +51,22 @@ public class Palindrome_Number {
             return true;
         }
     }
+
+    public boolean isPalindromeWithoutConvertingTheIntegerToAString(int x){
+        if(x < 0){
+            return false;
+        }
+
+        int originNum = x;
+        int reverseNum = 0;
+
+        while(x > 0){
+            int digit = x % 10;
+            reverseNum = reverseNum * 10 + digit;
+            x /= 10;
+        }
+
+        return originNum == reverseNum;
+
+    }
 }
