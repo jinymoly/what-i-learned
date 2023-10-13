@@ -82,8 +82,24 @@ In the Sales department:
 - Sam earns the second-highest salary
 - There is no third-highest salary as there are only two employees
 */
-select d.name as Department, e.name as Employee, row_number() over(order by e.salary desc) as Salary
-from employee e join department d
-on e.departmentId = d.id
-where row_number() over(order by e.salary desc) <= 3
-order by e.salary desc
+
+-- ROW_NUMBER()을 사용하면 각 부서 내에서 상위 3 명의 고액 연봉자를 찾는 대신, 각 부서에서 급여 순위를 매기는 방식임
+-- select d.name as Department, e.name as Employee, row_number() over(order by e.salary desc) as Salary
+-- from employee e join department d
+-- on e.departmentId = d.id
+-- where row_number() over(order by e.salary desc) <= 3
+-- order by e.salary desc
+
+-- WITH절 사용하여 가상의 테이블로 생성 
+-- DENSE_RANK()를 사용하여 부서 내에서 동일한 급여를 받는 직원이 있는 경우에도 동일한 순위를 할당하고, 따라서 상위 3명의 고액 연봉자를 선택
+with salaryRanking as
+  (select d.name as Department, 
+          e.name as Employee, e.salary as Salary,
+          dense_rank() over(partition by d.id
+                            order by e.salary desc) as salaryRank
+    from employee e join department d
+    on e.departmentId = d.id)
+
+select Department, Employee, Salary
+from salaryRanking
+where salaryRank <= 3
