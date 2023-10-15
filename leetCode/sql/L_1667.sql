@@ -49,6 +49,7 @@ SELECT USER_ID,
         CONCAT(UPPER(SUBSTR(NAME, 1, 1)), 
                 LOWER(SUBSTR(NAME, 2))) AS NAME
 FROM USERS
+ORDER BY USER_ID ASC;
 
 -- concat() 글자 이어붙이기 
 -- substr(string, start_position, length) >> length는 생략 가능하다. 
