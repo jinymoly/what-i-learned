@@ -136,8 +136,6 @@ public class P_92341 {
             String carNumber = separateRecord[1];
             String status = separateRecord[2];
 
-            // 주차장 사용 시간 
-            
             if(!carAndParkingStatusMap.containsKey(carNumber)){
                 carAndParkingStatusMap.put(carNumber, time);
             } else {
