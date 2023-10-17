@@ -1,7 +1,7 @@
 package programmers.java;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -122,92 +122,62 @@ fees	records	result
  */
 public class P_92341 {
     public int[] solution(int[] fees, String[] records){
-        Map<String, Car> carMap = new HashMap<>();
-
-        for(String record : records){
-            String[] separatingRecord = record.split(" ");
-            String time = separatingRecord[0];
-            String carNumber = separatingRecord[1];
-            String inOutState = separatingRecord[2];
-            
-            if(!carMap.containsKey(carNumber)){
-                carMap.put(carNumber, new Car(carNumber));
-            }
-
-            Car car = carMap.get(carNumber);
-
-            if(inOutState.equals("IN")){
-                car.setInTime(time);
-            } else if(inOutState.equals("OUT")){
-                car.setOutTime(time);
-            }
-        }
-
-        List<Car> cars = new ArrayList<>(carMap.values());
-        Collections.sort(cars, (car1, car2) -> car1.getCarNumber().compareTo(car2.getCarNumber()));
-
-        int[] result = new int[cars.size()];
-        int index = 0;
-
-        for(Car car : cars){
-            int parkingTime = car.calculateParkingTime();
-            int parkingFee = calculateParkingFee(parkingTime, fees);
-            result[index] = parkingFee;
-            index++;
-        }
-        return result;
-    }
-
-    private int calculateParkingFee(int parkingTime, int[] fees){
         int basicTime = fees[0];
         int defaultFee = fees[1];
         int unitTime = fees[2];
         int unitFee = fees[3];
 
-        if(parkingTime <= basicTime){
-            return defaultFee;
-        } else {
-            int extraTime = parkingTime - basicTime;
-            int extraFee = (int)Math.ceil((double)extraTime / unitTime) * (unitFee);
-            return defaultFee + extraFee;
+        Map<String, Integer> carTotalFeeMap = new HashMap<>(); // 차번호, 총요금
+        Map<String, String> carAndParkingStatusMap = new HashMap<>(); // 차번호, 주차 상태 - in/out
+
+        for(String recode : records){
+            String[] separateRecord = recode.split(" ");
+            String time = separateRecord[0];
+            String carNumber = separateRecord[1];
+            String status = separateRecord[2];
+
+            // 주차장 사용 시간 
+            
+            if(!carAndParkingStatusMap.containsKey(carNumber)){
+                carAndParkingStatusMap.put(carNumber, time);
+            } else {
+                if("OUT".equals(status)){
+                    int outTime = Integer.parseInt(time.split(":")[0]) * 60 + Integer.parseInt(time.split(":")[1]);
+                    int inTime = Integer.parseInt(carAndParkingStatusMap.get(carNumber).split(":")[0]) * 60 + 
+                                 Integer.parseInt(carAndParkingStatusMap.get(carNumber).split(":")[1]);
+                    int parkingTime = outTime - inTime;
+
+                    carTotalFeeMap.put(carNumber, carTotalFeeMap.getOrDefault(carNumber, 0) + parkingTime);
+                    carAndParkingStatusMap.remove(carNumber);
+                }
+            }
         }
-    }
-}
+        if(!carAndParkingStatusMap.isEmpty()){
+            for(String carNumber : carAndParkingStatusMap.keySet()){
+                int outTime = 1439;
+                int inTime = Integer.parseInt(carAndParkingStatusMap.get(carNumber).split(":")[0]) * 60 + 
+                            Integer.parseInt(carAndParkingStatusMap.get(carNumber).split(":")[1]);
+                int parkingTime = outTime - inTime;
 
-class Car {
-    private String carNumber;
-    private String inTime;
-    private String outTime;
+                carTotalFeeMap.put(carNumber, carTotalFeeMap.getOrDefault(carNumber, 0) + parkingTime);
+            }
+        }
+        List<Map.Entry<String,Integer>> sortedFeeList = new ArrayList<>(carTotalFeeMap.entrySet());
+        sortedFeeList.sort(Comparator.comparing(Map.Entry::getKey)); // 자동차 번호로 정렬
 
-    public Car(String carNumber){
-        this.carNumber = carNumber;
-        this.inTime = "00:00";
-        this.outTime = "23:59";
-    }
-
-    public void setInTime(String inTime){
-        this.inTime = inTime;
-    }
-
-    public void setOutTime(String outTime){
-        this.outTime = outTime;
-    }
-
-    public void setCarNumber(String carNumber){
-        this.carNumber = carNumber;
-    }
-
-    public String getCarNumber(){
-        return carNumber;
-    }
-
-    public int calculateParkingTime(){
-        int inHour = Integer.parseInt(inTime.split(":")[0]);
-        int inMinute = Integer.parseInt(inTime.split(":")[1]);
-        int outHour = Integer.parseInt(outTime.split(":")[0]);
-        int outMinute = Integer.parseInt(outTime.split(":")[1]);
-
-        return (outHour - inHour) * 60 + (outMinute - inMinute);
-
+        List<Integer> result = new ArrayList<>();
+        
+        for(Map.Entry<String, Integer> fee : sortedFeeList){
+            if(fee.getValue() <= basicTime){
+                result.add(defaultFee);
+            } else {
+                int extraTime = fee.getValue() - basicTime;
+                int extraFee = (int)Math.ceil((double)extraTime / unitTime) * unitFee;
+                result.add(defaultFee + extraFee);
+            }
+        }
+        int[] answer = result.stream().mapToInt(Integer::intValue).toArray();
+        return answer;
+        
     }
 }
