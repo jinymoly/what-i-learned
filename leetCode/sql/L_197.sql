@@ -51,3 +51,7 @@ from
             lag(temperature) over(order by recordDate) as prev_temperature
     from weather)
 where temperature > prev_temperature;
+
+-- LAG() : 윈도우 함수 중 하나, 데이터 비교, 누적 및 통계 연산과 같은 분석적인 작업을 수행하는 데 유용
+-- 현재 행의 이전 행(직전 행)의 값을 검색
+-- OVER 절과 함께 사용되며, 특정 열을 기준으로 정렬된 결과 집합에서 이전 행의 값을 가져온다.
