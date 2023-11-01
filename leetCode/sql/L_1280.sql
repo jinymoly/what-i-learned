@@ -110,3 +110,26 @@ select std.student_id as student_id, std.student_name as student_name,
 from students std join examinations exam on std.student_id = exam.student_id
 group by attended_exams
 order by std.student_id, exam.subject_name
+
+-- 1차 수정 
+select s.student_id as student_id, s.student_name as student_name, cnt.subject_name as subject_name, cnt.subject_count as attended_exams
+from students s join (
+select student_id, subject_name, nvl(count(*), 0) as subject_count
+from examinations 
+group by student_id, subject_name) cnt 
+on s.student_id = cnt.student_id
+order by s.student_id , cnt.subject_name
+
+-- 2차 수정
+select s.student_id as student_id, s.student_name as student_name, 
+        sbj.subject_name as subject_name, coalesce(cnt.subject_count, 0) as attended_exams
+from students s
+cross join subjects sbj
+left join(
+    select student_id, subject_name, count(*) as subject_count
+    from examinations 
+    group by student_id, subject_name) cnt
+on s.student_id = cnt.student_id 
+and sbj.subject_name = cnt.subject_name
+order by s.student_id, sbj.subject_name
+
