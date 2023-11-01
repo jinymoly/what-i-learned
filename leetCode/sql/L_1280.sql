@@ -133,3 +133,11 @@ on s.student_id = cnt.student_id
 and sbj.subject_name = cnt.subject_name
 order by s.student_id, sbj.subject_name
 
+-- nvl과 coalesce 함수의 차이 
+-- 우선 같은 점 ? NULL값을 다른 값으로 대체 
+
+-- nvl() : 두 개의 인수를 받고 첫 번째 인수가 null이면 두 번째 인수를 반환(주로 DBMS에서 사용)
+-- coalesce() : 여러 인수를 받아 첫 번째 non-null 값을 반환 (이 함수는 ansi sql표준에 따라 작동하므로 여러 DBMS에서 사용 가능)
+
+-- 근데 왜 nvl() 말고 coalesce()를 사용했니? 이식성과 가독성 
+-- coalesce()는 여러 인수를 처리하는 더 일반적인 함수라 다른 DBMS로 이식할 때 더 안정적이다.
