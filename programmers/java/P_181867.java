@@ -22,17 +22,11 @@ myString	result
  */
 public class P_181867 {
     public int[] solution(String myString){
-        int[] answer = {};
-        String[] splitX = myString.split("x");
+        String[] splitX = myString.split("x", myString.length());
+        // split(x, y) : x를 기준으로 y - 문자열의 최대 분할 개수
+        int[] answer = new int[splitX.length];
         
-        // 문자열의 끝이 'x'로 끝나는 경우 마지막 요소는 빈 문자열이므로 무시한다
-        if(myString.endsWith("x")){
-            answer = new int[splitX.length - 1];
-        } else {
-            answer = new int[splitX.length];
-        }
-        
-        for(int i = 0; i < splitX.length; i++){
+        for(int i = 0; i < answer.length; i++){
             answer[i] = splitX[i].length();
         }
         return answer;
