@@ -24,6 +24,7 @@ public class P_181867 {
     public int[] solution(String myString){
         String[] splitX = myString.split("x", myString.length());
         // split(x, y) : x를 기준으로 y - 문자열의 최대 분할 개수
+        // y가 음수 값 또는 생략인 경우 가능한 모든 분할을 수행한다
         int[] answer = new int[splitX.length];
         
         for(int i = 0; i < answer.length; i++){
