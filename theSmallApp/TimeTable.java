@@ -1,8 +1,8 @@
 package theSmallApp;
 
-import java.time.DayOfWeek;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * 시간표 만들고 조회 하기
@@ -12,10 +12,15 @@ import java.util.Map;
  * 특정 요일의 수업, 시간 조회
  * 전체 시간표 출력
  * 
+ * - 가정
+ * 요일은 월-금
+ * 9교시까지
+ * 
  * - 프로세스
  * 1. 요일을 입력 받는다
  * 1.0 한글인가
  * 1.1 weekdays 인가
+ * 
  */
 public class TimeTable {
 
@@ -73,29 +78,59 @@ public class TimeTable {
     }
 
     /**
-     * DayOfWeek 열거형의 한글 요일명을 반환
+     * 입력된 글자가 한글인지 검증한다.
      * 
-     * @param dayOfWeek
-     * @return
+     * @param input
      */
-    public static String getKoreanDayOfWeek(DayOfWeek dayOfWeek) {
-        switch (dayOfWeek) {
-            case MONDAY:
-                return "월요일";
-            case TUESDAY:
-                return "화요일";
-            case WEDNESDAY:
-                return "수요일";
-            case THURSDAY:
-                return "목요일";
-            case FRIDAY:
-                return "금요일";
-            default:
-                return "";
+    public static void validateKoreanInput(String input) {
+        if (!input.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
+            throw new IllegalArgumentException("한글만 입력하세요.");
+        }
+    }
+
+    /**
+     * 입력된 요일이 주중인지 검증한다.
+     * 
+     * @param input
+     */
+    public static void validateWeekdaysInput(String input) {
+        String[] validWeekdays = { "월요일", "화요일", "수요일", "목요일", "금요일" };
+
+        boolean isValid = false;
+        for (String weekday : validWeekdays) {
+            if (input.equals(weekday)) {
+                isValid = true;
+                break;
+
+            }
+        }
+        if (!isValid) {
+            throw new IllegalArgumentException("(월 / 화 / 수 / 목 / 금) 중에 입력하세요.");
         }
     }
 
     public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        TimeTable timeTable = new TimeTable();
+        String day;
+
+        System.out.println(" ======= 시간표 입력을 시작합니다. =======");
+        while (true) {
+            try {
+                System.out.println("요일을 입력하세요.");
+                day = scanner.nextLine();
+                validateKoreanInput(day);
+                validateWeekdaysInput(day);
+
+                System.out.println(day + "요일 선택!");
+                break;
+
+            } catch (IllegalArgumentException e) {
+                System.out.println("[[error ----- " + e.getMessage() + "]]");
+            }
+
+        }
 
     }
 }
