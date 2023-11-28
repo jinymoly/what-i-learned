@@ -57,24 +57,14 @@ public class TimeTable {
     }
 
     /**
-     * 시간표 출력
+     * 시간표를 출력한다.
      */
-    public void printAllClass() {
+    public void printAllClasses() {
         for (Map.Entry<String, String> entry : schedule.entrySet()) {
             String key = entry.getKey();
             String className = entry.getValue();
             System.out.println(key + " : " + className);
         }
-    }
-
-    /**
-     * 한글인지 확인
-     * 
-     * @param day
-     * @return
-     */
-    public static boolean isKorean(String day) {
-        return day.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*");
     }
 
     /**
@@ -94,7 +84,7 @@ public class TimeTable {
      * @param input
      */
     public static void validateWeekdaysInput(String input) {
-        String[] validWeekdays = { "월요일", "화요일", "수요일", "목요일", "금요일" };
+        String[] validWeekdays = { "월", "화", "수", "목", "금" };
 
         boolean isValid = false;
         for (String weekday : validWeekdays) {
@@ -109,28 +99,66 @@ public class TimeTable {
         }
     }
 
+    /**
+     * 1교시부터 9교시까지만 입력 가능하도록 제한한다.
+     * 
+     * @param input
+     */
+    public static void validateNumberInput(String input) {
+        if (!input.matches("[1-9]")) {
+            throw new IllegalArgumentException("1부터 9까지 유효합니다.");
+        }
+    }
+
+    /**
+     * 과목 명 길이를 체크한다.
+     * 
+     * @param input
+     */
+    public static void checkTheNumberOfLetters(String input) {
+        int count = input.length();
+        if (count > 15) {
+            throw new IllegalArgumentException("과목명은 15자 미만입니다.");
+        }
+    }
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        TimeTable timeTable = new TimeTable();
         String day;
+        String time;
+        String className;
 
         System.out.println(" ======= 시간표 입력을 시작합니다. =======");
+        TimeTable timeTable = new TimeTable();
         while (true) {
-            try {
-                System.out.println("요일을 입력하세요.");
-                day = scanner.nextLine();
-                validateKoreanInput(day);
-                validateWeekdaysInput(day);
 
-                System.out.println(day + "요일 선택!");
+            System.out.println("요일을 입력하세요.");
+            day = scanner.nextLine();
+            validateKoreanInput(day);
+            validateWeekdaysInput(day);
+
+            System.out.println("시간을 입력하세요");
+            time = scanner.nextLine();
+            validateNumberInput(time);
+
+            System.out.println("과목을 입력하세요");
+            className = scanner.nextLine();
+            validateKoreanInput(className);
+            checkTheNumberOfLetters(className);
+
+            timeTable.addClass(day, time, className);
+
+            System.out.println("더 입력하시겠습니까? (Y/N)");
+            String moreInput = scanner.nextLine();
+            if (!moreInput.equalsIgnoreCase("Y")) {
                 break;
-
-            } catch (IllegalArgumentException e) {
-                System.out.println("[[error ----- " + e.getMessage() + "]]");
             }
-
         }
+        scanner.close();
+
+        System.out.println("======= 생성된 시간표를 출력합니다. =======");
+        timeTable.printAllClasses();
 
     }
 }
