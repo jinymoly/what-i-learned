@@ -10,6 +10,7 @@ public class ChatServer {
 
     private static final int PORT = 7777;
     private static List<ClientHandler> clients = new ArrayList<>();
+    private static int count = 0;
 
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
@@ -18,7 +19,8 @@ public class ChatServer {
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("새로운 클라이언트가 연결되었습니다.");
+                count++;
+                System.out.println("새로운 클라이언트"+count+"님 연결되었습니다.");
 
                 ClientHandler clientHandler = new ClientHandler(clientSocket, clients);
                 clients.add(clientHandler);
@@ -29,5 +31,4 @@ public class ChatServer {
             e.printStackTrace();
         }
     }
-
 }
