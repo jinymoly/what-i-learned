@@ -31,22 +31,22 @@ public class ClientHandler implements Runnable {
         try {
             String userName = in.readLine();
             System.out.println("새로운 사용자 입장 : " + userName);
-
-            for (ClientHandler client : clients) {
-                client.sendMessage(userName + " 님이 입장하셨습니다.");
-            }
+            sendMessage("현재 접속 중 클라이언트 수 :" + ChatServer.getClientCount());
 
             String message;
             while ((message = in.readLine()) != null) {
-                System.out.println(userName + " : " + message);
+                System.out.println(userName + "님 : " + message);
                 for (ClientHandler client : clients) {
-                    client.sendMessage(userName + " : " + message);
+                    client.sendMessage(userName + "님 : " + message);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             clients.remove(this);
+            ChatServer.decrementClientCount();
+            sendMessage("현재 접속 중 클라이언트 수 :" + ChatServer.getClientCount());
+
             try {
                 clientSocket.close();
             } catch (IOException e) {
@@ -54,7 +54,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    private void sendMessage(String message) {
+    public void sendMessage(String message) {
         out.println(message);
     }
 
