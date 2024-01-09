@@ -20,7 +20,8 @@ public class ChatServer {
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 count++;
-                System.out.println("새로운 클라이언트"+count+"님 연결되었습니다.");
+                System.out.println("새로운 클라이언트" + count + "가 연결되었습니다.");
+                broadcast("현재 접속중인 클라이언트 수 : " + count);
 
                 ClientHandler clientHandler = new ClientHandler(clientSocket, clients);
                 clients.add(clientHandler);
@@ -31,4 +32,19 @@ public class ChatServer {
             e.printStackTrace();
         }
     }
+
+    private static void broadcast(String message) {
+        for (ClientHandler client : clients) {
+            client.sendMessage(message);
+        }
+    }
+
+    public static int getClientCount() {
+        return count;
+    }
+
+    public static void decrementClientCount(){
+        count--;
+    }
+
 }

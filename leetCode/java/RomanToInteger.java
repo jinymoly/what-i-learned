@@ -67,6 +67,7 @@ public class RomanToInteger {
 
             int currentValue = roman.get(currentChar);
 
+            // 누적된 값이 더 크면 + , 작으면 -
             if (i < s.length() - 1 && roman.get(s.charAt(i + 1)) > currentValue) {
                 result -= currentValue;
             } else {
