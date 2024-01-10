@@ -21,7 +21,7 @@ public class ChatServer {
                 Socket clientSocket = serverSocket.accept();
                 count++;
                 System.out.println("새로운 클라이언트" + count + "가 연결되었습니다.");
-                broadcast("현재 접속중인 클라이언트 수 : " + count);
+                broadcastToClient("현재 접속중인 클라이언트 수 : " + count);
 
                 ClientHandler clientHandler = new ClientHandler(clientSocket, clients);
                 clients.add(clientHandler);
@@ -33,7 +33,7 @@ public class ChatServer {
         }
     }
 
-    private static void broadcast(String message) {
+    public static void broadcastToClient(String message) {
         for (ClientHandler client : clients) {
             client.sendMessage(message);
         }

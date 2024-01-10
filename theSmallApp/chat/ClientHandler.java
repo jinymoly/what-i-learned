@@ -36,8 +36,11 @@ public class ClientHandler implements Runnable {
             String message;
             while ((message = in.readLine()) != null) {
                 System.out.println(userName + "님 : " + message);
-                for (ClientHandler client : clients) {
-                    client.sendMessage(userName + "님 : " + message);
+                ChatServer.broadcastToClient(userName + "님: " + message);
+
+                if ("/exit".equals(message)) {
+                    ChatServer.broadcastToClient(userName + "님이 나가셨습니다.");
+                    break;
                 }
             }
         } catch (IOException e) {
@@ -45,11 +48,12 @@ public class ClientHandler implements Runnable {
         } finally {
             clients.remove(this);
             ChatServer.decrementClientCount();
-            sendMessage("현재 접속 중 클라이언트 수 :" + ChatServer.getClientCount());
+            ChatServer.broadcastToClient("현재 접속 중 클라이언트 수 :" + ChatServer.getClientCount());
 
             try {
                 clientSocket.close();
             } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

@@ -14,17 +14,17 @@ public class ChatClient {
     public static void main(String[] args) {
         try (Socket socket = new Socket(SERVER_IP, PORT);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+                PrintWriter outToServer = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader userText = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
             System.out.println("사용자 이름을 입력하세요: ");
             String userName = reader.readLine();
-            out.println(userName);
+            outToServer.println(userName);
 
             Thread messageThread = new Thread(() -> {
                 try {
                     String message;
-                    while ((message = in.readLine()) != null) {
+                    while ((message = userText.readLine()) != null) {
                         System.out.println(message);
                     }
                 } catch (IOException e) {
@@ -39,10 +39,11 @@ public class ChatClient {
             while (true) {
                 userInput = reader.readLine();
                 if ("/exit".equals(userInput)) {
+                    outToServer.println(userInput);
                     System.out.println("채팅이 종료되었습니다.");
                     break;
                 }
-                out.println(userInput);
+                outToServer.println(userInput);
             }
 
         } catch (IOException e) {
