@@ -14,11 +14,14 @@ public class ClientHandler implements Runnable {
     private BufferedReader in;
     private List<ClientHandler> clients;
 
+    public static final String EXIT_MESSAGE = "/exit";
+
     public ClientHandler(Socket clientSocket, List<ClientHandler> clients) {
         this.clientSocket = clientSocket;
         this.clients = clients;
 
         try {
+            // 클라이언트와의 입력스트림
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         } catch (IOException e) {
@@ -30,25 +33,30 @@ public class ClientHandler implements Runnable {
     public void run() {
         try {
             String userName = in.readLine();
-            System.out.println("새로운 사용자 입장 : " + userName);
-            sendMessage("현재 접속 중 클라이언트 수 :" + ChatServer.getClientCount());
+            System.out.println("[server]새로운 사용자 입장 : " + userName);
+            ChatServer.broadcastToClient("[b]새로운 사용자 입장 : " + userName);
+            sendMessage("\n[welcome] 현재 접속 중 사용자 수 : " + ChatServer.getClientCount() + "\n");
+            System.out.println("[server]현재 접속 중 사용자 수 : " + ChatServer.getClientCount());
+
 
             String message;
             while ((message = in.readLine()) != null) {
-                System.out.println(userName + "님 : " + message);
-                ChatServer.broadcastToClient(userName + "님: " + message);
+                System.out.println("[server]" + userName + "님 : " + message);
+                ChatServer.broadcastToClient("[b]" + userName + "님: " + message);
 
-                if ("/exit".equals(message)) {
-                    ChatServer.broadcastToClient(userName + "님이 나가셨습니다.");
+                if (EXIT_MESSAGE.equals(message)) {
+                    ChatServer.broadcastToClient(userName + "님[b]이 나가셨습니다.");
                     break;
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            clients.remove(this);
+            synchronized (clients) {
+                clients.remove(this);
+            }
             ChatServer.decrementClientCount();
-            ChatServer.broadcastToClient("현재 접속 중 클라이언트 수 :" + ChatServer.getClientCount());
+            ChatServer.broadcastToClient("[b]현재 접속 중 사용자 수 :" + ChatServer.getClientCount());
 
             try {
                 clientSocket.close();

@@ -17,12 +17,7 @@ public class ChatClient {
                 PrintWriter outToServer = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader userText = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-            String userName;
-            do {
-                System.out.println("사용자 이름을 입력하세요");
-                userName = reader.readLine();
-            } while (userName == null || userName.trim().isEmpty());
-            outToServer.println(userName);
+            String userName = getUserName(reader, outToServer);
 
             Thread messageThread = new Thread(() -> {
                 try {
@@ -36,21 +31,33 @@ public class ChatClient {
             });
             messageThread.start();
 
-            System.out.println("채팅을 시작합니다. 종료하려면 '/exit' 입력");
+            System.out.println("채팅을 시작합니다. 종료하려면 '"+ ClientHandler.EXIT_MESSAGE +"' 입력");
             String userInput;
 
             while (true) {
                 userInput = reader.readLine();
-                if ("/exit".equals(userInput)) {
-                    outToServer.println(userName + "님[c]이 나가셨습니다.");
+                if (ClientHandler.EXIT_MESSAGE.equals(userInput)) {
+                    ChatServer.broadcastToClient(userName + "님[b]이 나가셨습니다.");
+                    // outToServer.println("[issue]" +userName + "님이 나가셨습니다.");
                     System.out.println("채팅이 종료되었습니다.");
                     break;
+                } else {
+                    outToServer.println(userInput);
                 }
-                outToServer.println(userInput);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static String getUserName(BufferedReader reader, PrintWriter outToServer) throws IOException {
+        String userName;
+        do {
+            System.out.print("사용자 이름을 입력하세요 : ");
+            userName = reader.readLine();
+        } while (userName == null || userName.trim().isEmpty());
+        outToServer.println(userName);
+        return userName;
     }
 }

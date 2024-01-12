@@ -18,11 +18,13 @@ public class ChatServer {
             System.out.println("======== SERVER =======");
 
             while (true) {
-                Socket clientSocket = serverSocket.accept();
-                count++;
-                System.out.println("새로운 클라이언트" + count + "가 연결되었습니다.");
-                broadcastToClient("현재 접속중인 클라이언트 수 : " + count);
+                Socket clientSocket = serverSocket.accept(); // client 연결 대기
+                incrementClientCount();
+                System.out.println("[server]새로운 사용자" + count + "가 연결되었습니다.");
+                broadcastToClient("### 새 접속자가 연결되었습니다.");
+                broadcastToClient("[b]현재 접속 중 사용자 수 : " + count);
 
+                // client 핸들러 생성 및 실행
                 ClientHandler clientHandler = new ClientHandler(clientSocket, clients);
                 clients.add(clientHandler);
                 new Thread(clientHandler).start();
@@ -43,7 +45,11 @@ public class ChatServer {
         return count;
     }
 
-    public static void decrementClientCount(){
+    public static void incrementClientCount() {
+        count++;
+    }
+
+    public static void decrementClientCount() {
         count--;
     }
 
