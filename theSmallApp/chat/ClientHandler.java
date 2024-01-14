@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Collections;
 import java.util.List;
 
 public class ClientHandler implements Runnable {
@@ -18,7 +19,7 @@ public class ClientHandler implements Runnable {
 
     public ClientHandler(Socket clientSocket, List<ClientHandler> clients) {
         this.clientSocket = clientSocket;
-        this.clients = clients;
+        this.clients = Collections.synchronizedList(clients);
 
         try {
             // 클라이언트와의 입력스트림
@@ -41,11 +42,12 @@ public class ClientHandler implements Runnable {
 
             String message;
             while ((message = in.readLine()) != null) {
-                System.out.println("[server]" + userName + "님 : " + message);
+                System.out.println("[server]" + userName + "님 : " + message + ChatServer.getServerTime());
                 ChatServer.broadcastToClient("[b]" + userName + "님: " + message);
 
                 if (EXIT_MESSAGE.equals(message)) {
                     ChatServer.broadcastToClient(userName + "님[b]이 나가셨습니다.");
+                    System.out.println("[server]" + userName + "님 퇴장 " + ChatServer.getServerTime());
                     break;
                 }
             }
