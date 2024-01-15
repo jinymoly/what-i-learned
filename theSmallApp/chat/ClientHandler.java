@@ -5,23 +5,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Collections;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class ClientHandler implements Runnable {
 
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
-    private List<ClientHandler> clients;
+    private Map<ClientHandler, Boolean> clients = new HashMap<>();
 
-    public boolean isOnline = false;
+    public boolean isOnline = true;
 
     public static final String EXIT_MESSAGE = "/exit";
 
-    public ClientHandler(Socket clientSocket, List<ClientHandler> clients) {
+    public ClientHandler(Socket clientSocket, Map<ClientHandler, Boolean> clients) {
         this.clientSocket = clientSocket;
-        this.clients = Collections.synchronizedList(clients);
+        this.clients = clients;
 
         try {
             // 클라이언트와의 입력스트림
@@ -35,25 +36,26 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         try {
-            String userName = in.readLine();
+            String userName = getUserNameWithValidator(
+                    new BufferedReader(new InputStreamReader(clientSocket.getInputStream())));
+            clients.put(this, true);
             System.out.println("[server]새로운 사용자 입장 : " + userName);
             ChatServer.broadcastToClient("[b]새로운 사용자 입장 : " + userName);
-            isOnline = true;
             sendMessage("\n[welcome] 현재 접속 중 사용자 수 : " + ChatServer.getClientCount() + "\n");
             System.out.println("[server]현재 접속 중 사용자 수 : " + ChatServer.getClientCount());
 
             String message;
             while ((message = in.readLine()) != null) {
-                System.out.println("[server]" + userName + "님(" + isOnline + ") : " 
-                                    + message + ChatServer.getServerTime());
-                ChatServer.broadcastToClient("[b]" + userName + "님: " + message);
+                System.out.println("[server]" + userName + "님(" + isOnline + ") : "
+                        + message + ChatServer.getServerTime());
+                ChatServer.broadcastToClient("[bㄴ]" + userName + "님: " + message);
 
                 if (EXIT_MESSAGE.equals(message)) {
-                    isOnline = false;
-                    System.out.println("[server]" + userName + "님(" + isOnline+")" + ChatServer.getServerTime());
-                    ChatServer.broadcastToClient(userName + "님[b]이 나가셨습니다.");
-                    System.out.println("[server]" + userName + "님 퇴장 " + ChatServer.getServerTime());
-
+                    synchronized (clients) {
+                        isOnline = false;
+                        ChatServer.broadcastToClient("으아아아아 " + userName);
+                        exitNoti(userName);
+                    }
                     break;
                 }
             }
@@ -61,10 +63,16 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
         } finally {
             synchronized (clients) {
-                clients.remove(this);
+                Iterator<Map.Entry<ClientHandler, Boolean>> iterator = clients.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry<ClientHandler, Boolean> entry = iterator.next();
+                    if (entry.getValue() == false) {
+                        iterator.remove();
+                    }
+                }
+                ChatServer.decrementClientCount();
+                ChatServer.broadcastToClient("[b-]현재 접속 중 사용자 수 :" + ChatServer.getClientCount());
             }
-            ChatServer.decrementClientCount();
-            ChatServer.broadcastToClient("[b]현재 접속 중 사용자 수 :" + ChatServer.getClientCount());
 
             try {
                 clientSocket.close();
@@ -72,6 +80,21 @@ public class ClientHandler implements Runnable {
                 e.printStackTrace();
             }
         }
+    }
+
+    private String getUserNameWithValidator(BufferedReader reader) throws IOException {
+        String userName;
+        do {
+            sendMessage("사용자 이름을 입력하세요. ");
+            userName = reader.readLine().trim();
+        } while (userName.isEmpty());
+        sendMessage(userName + "님, 종료하려면 '" + EXIT_MESSAGE + "' 입력하세요.");
+        return userName;
+    }
+
+    public static void exitNoti(String userName) {
+        String notiText = userName + "님이 나가셨습니다.";
+        ChatServer.broadcastToClient(notiText);
     }
 
     public void sendMessage(String message) {

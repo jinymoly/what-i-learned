@@ -17,8 +17,6 @@ public class ChatClient {
                 PrintWriter outToServer = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader userText = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-            String userName = getUserName(reader, outToServer);
-
             Thread messageThread = new Thread(() -> {
                 try {
                     String message;
@@ -31,13 +29,11 @@ public class ChatClient {
             });
             messageThread.start();
 
-            System.out.println("채팅을 시작합니다. 종료하려면 '" + ClientHandler.EXIT_MESSAGE + "' 입력");
             String userInput;
 
             while (true) {
                 userInput = reader.readLine();
                 if (ClientHandler.EXIT_MESSAGE.equals(userInput)) {
-                    // outToServer.println("[issue]" +userName + "님이 나가셨습니다.");
                     System.out.println("채팅이 종료되었습니다.");
                     break;
                 } else {
@@ -50,13 +46,4 @@ public class ChatClient {
         }
     }
 
-    private static String getUserName(BufferedReader reader, PrintWriter outToServer) throws IOException {
-        String userName;
-        do {
-            System.out.print("사용자 이름을 입력하세요 : ");
-            userName = reader.readLine();
-        } while (userName == null || userName.trim().isEmpty());
-        outToServer.println(userName);
-        return userName;
-    }
 }

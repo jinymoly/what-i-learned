@@ -5,14 +5,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChatServer {
 
     private static final int PORT = 7777;
-    private static List<ClientHandler> clients = Collections.synchronizedList(new ArrayList<>());
+    private static Map<ClientHandler, Boolean> clients = new HashMap<>();
     private static int count = 0;
 
     private static DateTimeFormatter serverTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -31,8 +31,8 @@ public class ChatServer {
 
                 // client 핸들러 생성 및 실행
                 ClientHandler clientHandler = new ClientHandler(clientSocket, clients);
+                clients.put(clientHandler, true);
 
-                clients.add(clientHandler);
                 new Thread(clientHandler).start();
             }
 
@@ -47,9 +47,13 @@ public class ChatServer {
     }
 
     public static void broadcastToClient(String message) {
-        for (ClientHandler client : clients) {
-            if(client.isOnline == true)
-            client.sendMessage(message);
+        for (Map.Entry<ClientHandler, Boolean> entry : clients.entrySet()) {
+            ClientHandler client = entry.getKey();
+            Boolean isOnline = entry.getValue();
+
+            if (isOnline) {
+                client.sendMessage(message);
+            }
         }
     }
 
