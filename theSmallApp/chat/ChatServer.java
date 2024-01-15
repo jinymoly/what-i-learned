@@ -31,10 +31,8 @@ public class ChatServer {
 
                 // client 핸들러 생성 및 실행
                 ClientHandler clientHandler = new ClientHandler(clientSocket, clients);
-                
-                synchronized(clients) {
-                    clients.add(clientHandler);
-                }
+
+                clients.add(clientHandler);
                 new Thread(clientHandler).start();
             }
 
@@ -50,6 +48,7 @@ public class ChatServer {
 
     public static void broadcastToClient(String message) {
         for (ClientHandler client : clients) {
+            if(client.isOnline == true)
             client.sendMessage(message);
         }
     }

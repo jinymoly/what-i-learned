@@ -15,6 +15,8 @@ public class ClientHandler implements Runnable {
     private BufferedReader in;
     private List<ClientHandler> clients;
 
+    public boolean isOnline = false;
+
     public static final String EXIT_MESSAGE = "/exit";
 
     public ClientHandler(Socket clientSocket, List<ClientHandler> clients) {
@@ -36,18 +38,22 @@ public class ClientHandler implements Runnable {
             String userName = in.readLine();
             System.out.println("[server]새로운 사용자 입장 : " + userName);
             ChatServer.broadcastToClient("[b]새로운 사용자 입장 : " + userName);
+            isOnline = true;
             sendMessage("\n[welcome] 현재 접속 중 사용자 수 : " + ChatServer.getClientCount() + "\n");
             System.out.println("[server]현재 접속 중 사용자 수 : " + ChatServer.getClientCount());
 
-
             String message;
             while ((message = in.readLine()) != null) {
-                System.out.println("[server]" + userName + "님 : " + message + ChatServer.getServerTime());
+                System.out.println("[server]" + userName + "님(" + isOnline + ") : " 
+                                    + message + ChatServer.getServerTime());
                 ChatServer.broadcastToClient("[b]" + userName + "님: " + message);
 
                 if (EXIT_MESSAGE.equals(message)) {
+                    isOnline = false;
+                    System.out.println("[server]" + userName + "님(" + isOnline+")" + ChatServer.getServerTime());
                     ChatServer.broadcastToClient(userName + "님[b]이 나가셨습니다.");
                     System.out.println("[server]" + userName + "님 퇴장 " + ChatServer.getServerTime());
+
                     break;
                 }
             }

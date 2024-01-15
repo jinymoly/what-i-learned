@@ -11,8 +11,6 @@ public class ChatClient {
     private static final String SERVER_IP = "127.0.0.1";
     private static final int PORT = 7777;
 
-    //private static boolean isOnline = false;
-
     public static void main(String[] args) {
         try (Socket socket = new Socket(SERVER_IP, PORT);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -33,13 +31,13 @@ public class ChatClient {
             });
             messageThread.start();
 
-            System.out.println("채팅을 시작합니다. 종료하려면 '"+ ClientHandler.EXIT_MESSAGE +"' 입력");
+            System.out.println("채팅을 시작합니다. 종료하려면 '" + ClientHandler.EXIT_MESSAGE + "' 입력");
             String userInput;
 
             while (true) {
                 userInput = reader.readLine();
                 if (ClientHandler.EXIT_MESSAGE.equals(userInput)) {
-                    //outToServer.println("[issue]" +userName + "님이 나가셨습니다.");
+                    // outToServer.println("[issue]" +userName + "님이 나가셨습니다.");
                     System.out.println("채팅이 종료되었습니다.");
                     break;
                 } else {
