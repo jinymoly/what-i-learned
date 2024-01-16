@@ -16,6 +16,8 @@ public class ClientHandler implements Runnable {
     private BufferedReader in;
     private Map<ClientHandler, Boolean> clients = new HashMap<>();
 
+    private String userName;
+
     public boolean isOnline = true;
 
     public static final String EXIT_MESSAGE = "/exit";
@@ -36,25 +38,22 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         try {
-            String userName = getUserNameWithValidator(
+            userName = getUserNameWithValidator(
                     new BufferedReader(new InputStreamReader(clientSocket.getInputStream())));
             clients.put(this, true);
             System.out.println("[server]새로운 사용자 입장 : " + userName);
-            ChatServer.broadcastToClient("[b]새로운 사용자 입장 : " + userName);
+            ChatServer.broadcastToClient("[👋]새로운 사용자 입장 : " + userName);
             sendMessage("\n[welcome] 현재 접속 중 사용자 수 : " + ChatServer.getClientCount() + "\n");
             System.out.println("[server]현재 접속 중 사용자 수 : " + ChatServer.getClientCount());
 
             String message;
             while ((message = in.readLine()) != null) {
-                System.out.println("[server]" + userName + "님(" + isOnline + ") : "
-                        + message + ChatServer.getServerTime());
-                ChatServer.broadcastToClient("[bㄴ]" + userName + "님: " + message);
+                System.out.println("[server]" + userName + "님 : "+ message + ChatServer.getServerTime());
+                ChatServer.broadcastToClient("[online] " + userName + "님: " + message);
 
-                if (EXIT_MESSAGE.equals(message)) {
+                if (clientSocket.isInputShutdown()) {
                     synchronized (clients) {
                         isOnline = false;
-                        ChatServer.broadcastToClient("으아아아아 " + userName);
-                        exitNoti(userName);
                     }
                     break;
                 }
@@ -71,7 +70,8 @@ public class ClientHandler implements Runnable {
                     }
                 }
                 ChatServer.decrementClientCount();
-                ChatServer.broadcastToClient("[b-]현재 접속 중 사용자 수 :" + ChatServer.getClientCount());
+                ChatServer.broadcastToClient("[👋]현재 접속 중 사용자 수 :" + ChatServer.getClientCount());
+                System.out.println("[server] " + exitNoti(userName));
             }
 
             try {
@@ -92,9 +92,10 @@ public class ClientHandler implements Runnable {
         return userName;
     }
 
-    public static void exitNoti(String userName) {
-        String notiText = userName + "님이 나가셨습니다.";
+    public static String exitNoti(String userName) {
+        String notiText = "🥲 " + userName + "님이 나가셨습니다.";
         ChatServer.broadcastToClient(notiText);
+        return notiText;
     }
 
     public void sendMessage(String message) {

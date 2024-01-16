@@ -35,6 +35,7 @@ public class ChatClient {
                 userInput = reader.readLine();
                 if (ClientHandler.EXIT_MESSAGE.equals(userInput)) {
                     System.out.println("채팅이 종료되었습니다.");
+                    socket.close();
                     break;
                 } else {
                     outToServer.println(userInput);
@@ -45,5 +46,6 @@ public class ChatClient {
             e.printStackTrace();
         }
     }
+
 
 }

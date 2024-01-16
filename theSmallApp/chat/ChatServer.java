@@ -27,7 +27,7 @@ public class ChatServer {
                 incrementClientCount();
                 System.out.println("[server]새로운 사용자" + count + "가 연결되었습니다." + getServerTime());
                 broadcastToClient("### 새 접속자가 연결되었습니다.");
-                broadcastToClient("[b]현재 접속 중 사용자 수 : " + count);
+                broadcastToClient("[👋]현재 접속 중 사용자 수 : " + count);
 
                 // client 핸들러 생성 및 실행
                 ClientHandler clientHandler = new ClientHandler(clientSocket, clients);
