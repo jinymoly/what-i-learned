@@ -38,8 +38,7 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         try {
-            userName = getUserNameWithValidator(
-                    new BufferedReader(new InputStreamReader(clientSocket.getInputStream())));
+            userName = getUserNameWithValidator(new BufferedReader(new InputStreamReader(clientSocket.getInputStream())));
             clients.put(this, true);
             System.out.println("[server]새로운 사용자 입장 : " + userName);
             ChatServer.broadcastToClient("[👋]새로운 사용자 입장 : " + userName);
