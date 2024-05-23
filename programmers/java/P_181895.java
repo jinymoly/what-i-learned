@@ -32,7 +32,7 @@ arr	intervals	result
 public class P_181895 {
     public int[] solution(int[] arr, int[][] intervals){
         int[] intervalA = extractSubArray(arr, intervals[0][0], intervals[0][1]);
-        int[] intervalB = extractSubArray(arr, intervals[1][0], intervals[1][0]);
+        int[] intervalB = extractSubArray(arr, intervals[1][0], intervals[1][1]);
 
         int[] answer = connectBackAndForth(intervalA, intervalB);
         return answer;
