@@ -38,15 +38,16 @@ import java.util.Arrays;
 public class P_1882 {
     public int solution(String[] strs, String t) {
         int n = t.length();
-        int[] dp = new int[n + 1];
-        Arrays.fill(dp, Integer.MAX_VALUE);
+        int[] dp = new int[n + 1]; // dp 배열 초기화 
+        Arrays.fill(dp, Integer.MAX_VALUE); // 모든 값을 최대값으로 초기화 >> 최소값 구하기 위해  
 
-        dp[0] = 0;
+        dp[0] = 0; // 시작점 0
 
-        for (int i = 1; i <= n; i++) {
+        // i : 단어 길이  t : 인덱스  j : 단어 조각 길이
+        for (int i = 1; i <= n; i++) { // i : t으ㅣ 현재 끝 위치
             for (int j = 1; j <= 5; j++) {
-                if (i - j >= 0) {
-                    String word = t.substring(i - j, i);
+                if (i - j >= 0) { // 시작 위치 유효
+                    String word = t.substring(i - j, i); // 현재 검사 단어
                     if (Arrays.asList(strs).contains(word)) {
                         if (dp[i - j] != Integer.MAX_VALUE) {
                             dp[i] = Math.min(dp[i], dp[i - j] + 1);
