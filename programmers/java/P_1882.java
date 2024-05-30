@@ -49,13 +49,13 @@ public class P_1882 {
                 if (i - j >= 0) { // 시작 위치 유효
                     String word = t.substring(i - j, i); // 현재 검사 단어
                     if (Arrays.asList(strs).contains(word)) {
-                        if (dp[i - j] != Integer.MAX_VALUE) {
+                        if (dp[i - j] != Integer.MAX_VALUE) { // i-j 부분문자열 완성 가능이라면
                             dp[i] = Math.min(dp[i], dp[i - j] + 1);
                         }
                     }
                 }
             }
         }
-        return dp[n] == Integer.MAX_VALUE ? -1 : dp[n];
+        return dp[n] == Integer.MAX_VALUE ? -1 : dp[n]; // 최대값이면 t 완성 불가 >> -1 아니라면 t를 완성할 최소 단어 조각 개수 반환
     }
 }
