@@ -49,7 +49,7 @@ Constraints:
 s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
 It is guaranteed that s is a valid roman numeral in the range [1, 3999].
  */
-public class RomanToInteger {
+public class L_13 {
     public int romanToInt(String s) {
         Map<Character, Integer> roman = new HashMap<>();
         roman.put('I', 1);
