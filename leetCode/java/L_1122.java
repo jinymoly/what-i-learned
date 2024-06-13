@@ -39,12 +39,12 @@ public class L_1122 {
             for(int n1 = 0; n1 < arr1.length; n1++){
                 if(n2 == arr1[n1]){
                     result[index++] = arr1[n1];
-                    arr1[n1] = 0;
+                    arr1[n1] = -1;
                 }
             }
         }
         for(int n1 : arr1){
-            if(n1 != 0){
+            if(n1 != -1){
                 result[index++] = n1;
             }
         }
